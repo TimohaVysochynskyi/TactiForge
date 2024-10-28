@@ -12,10 +12,12 @@
   "dependencies": {
     "@babylonjs/core": "^7.31.0",
     "@babylonjs/loaders": "^7.31.0",
+    "@types/react-icons": "^3.0.0",
     "@types/react-router-dom": "^5.3.3",
     "react": "^18.3.1",
     "react-babylonjs": "^3.2.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.27.0"
   },
