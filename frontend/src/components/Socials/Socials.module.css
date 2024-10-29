@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0 20px;
+}
+.name {
+  font-size: 18px;
+}
+.list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0 15px;
+  padding-right: 5px;
+}
+.link {
+  text-decoration: none;
+}
+.icon {
+  height: 30px;
+  width: 30px;
+  border-radius: 16px;
+  transition: 0.3s;
+}
+.item:nth-child(2) .link .icon {
+  border-radius: 10px;
+}
+.icon:hover {
+  box-shadow: 0px 0px 5px #dedede;
+  transform: scale(1.075);
+}
+
+@media screen and (max-width: 968px) {
+  .name {
+    font-size: 15px;
+  }
+  .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    gap: 0 10px;
+  }
+  .name {
+    font-size: 14px;
+  }
+  .icon {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .name {
+    font-size: 13px;
+  }
+  .icon {
+    height: 22px;
+    width: 22px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .name {
+    font-size: 16px;
+  }
+  .icon {
+    height: 28px;
+    width: 28px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .name {
+    font-size: 14px;
+  }
+  .icon {
+    height: 24px;
+    width: 24px;
+  }
+}
+@media screen and (max-width: 365px) {
+  .name {
+    font-size: 13px;
+  }
+  .icon {
+    height: 22px;
+    width: 22px;
+  }
+}

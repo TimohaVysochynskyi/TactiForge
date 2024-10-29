@@ -4,12 +4,3 @@
   flex-direction: column;
   align-items: center;
 }
-.logo {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-.subtitle {
-  font-weight: 500;
-  font-size: 16px;
-  text-align: center;
-}

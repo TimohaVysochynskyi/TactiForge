@@ -1,13 +1,56 @@
 .list {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   list-style: none;
-  gap: 0 10px;
+  gap: 0 20px;
 }
 .link {
-  font-size: 15px;
+  font-size: 18px;
   text-transform: uppercase;
   text-decoration: none;
   font-weight: 400;
   color: #fff;
+}
+
+@media screen and (max-width: 968px) {
+  .list {
+    gap: 0 10px;
+  }
+  .link {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .link {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .link {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .list {
+    gap: 0 15px;
+  }
+  .link {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .link {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 365px) {
+  .link {
+    font-size: 13px;
+  }
 }

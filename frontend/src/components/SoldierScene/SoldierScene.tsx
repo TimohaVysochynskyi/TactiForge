@@ -33,9 +33,9 @@ export default function SoldierScene() {
       const camera = new ArcRotateCamera(
         "camera",
         Math.PI / 2,
-        Math.PI / 2.4,
-        5,
-        new Vector3(0, 1.8, 0),
+        Math.PI / 2.2,
+        4.55,
+        new Vector3(-0.3, 1.82, 0),
         scene
       );
       camera.attachControl(scene.getEngine().getRenderingCanvas(), false);
@@ -112,7 +112,6 @@ export default function SoldierScene() {
       )}
       <div className={css.scene}>
         <canvas ref={canvasRef} className={css.canvas} />
-        <div className={css.gradient}></div>
       </div>
     </>
   );
