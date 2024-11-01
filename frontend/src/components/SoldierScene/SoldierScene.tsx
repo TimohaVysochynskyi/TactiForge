@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import clsx from "clsx";
 import {
   Engine,
   Scene,
@@ -10,90 +11,94 @@ import {
   AnimationGroup,
   SceneLoader,
   Mesh,
+  Animation,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
+
 import Loader from "../Loader/Loader";
+
 import css from "./SoldierScene.module.css";
 
-export default function SoldierScene() {
+type Props = {
+  chat: boolean;
+  animation: string;
+};
+
+export default function SoldierScene({ chat, animation }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const cameraRef = useRef<ArcRotateCamera | null>(null); // Реф для камери
   const animationGroupsRef = useRef<AnimationGroup[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Функція для відтворення анімації
+  const playAnimation = (animationName: string) => {
+    animationGroupsRef.current.forEach((group) => group.stop());
+    const animationGroup = animationGroupsRef.current.find(
+      (group) => group.name === animationName
+    );
+    animationGroup?.start(true);
+  };
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
+    scene.clearColor = new Color4(0, 0, 0, 0);
 
-    scene.clearColor = new Color4(0); // Прозоре тло сцени
+    // Завантаження моделі
+    SceneLoader.ImportMesh(
+      "",
+      "assets/", // Заміна на реальний шлях
+      "soldier.glb",
+      scene,
+      (meshes, _, __, animationGroups) => {
+        const soldier = meshes[0] as Mesh;
+        soldier.position = new Vector3(0, 0, 0);
+        animationGroupsRef.current = animationGroups;
 
-    const onSceneReady = (scene: Scene) => {
-      // Налаштування камери
-      const camera = new ArcRotateCamera(
-        "camera",
-        Math.PI / 2,
-        Math.PI / 2.2,
-        4.55,
-        new Vector3(-0.3, 1.82, 0),
-        scene
-      );
-      camera.attachControl(scene.getEngine().getRenderingCanvas(), false);
-      camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius;
-      camera.lowerAlphaLimit = camera.upperAlphaLimit = camera.alpha;
-      camera.lowerBetaLimit = camera.upperBetaLimit = camera.beta;
+        // Запуск початкової анімації
+        playAnimation(animation);
 
-      // Додаткове освітлення
-      const ambientLight = new HemisphericLight(
-        "ambientLight",
-        new Vector3(0, 1, 0),
-        scene
-      );
-      ambientLight.intensity = 0.9;
+        setLoading(false);
+      }
+    );
 
-      const directionalLight = new DirectionalLight(
-        "directionalLight",
-        new Vector3(-1, -2, -1),
-        scene
-      );
-      directionalLight.intensity = 1;
-      directionalLight.position = new Vector3(5, 10, 5);
+    // Налаштування камери
+    const camera = new ArcRotateCamera(
+      "camera",
+      Math.PI / 2,
+      Math.PI / 2.2,
+      4.65,
+      new Vector3(-0.3, 1.78, 0),
+      scene
+    );
+    cameraRef.current = camera; // Збереження камери у реф
+    camera.attachControl(scene.getEngine().getRenderingCanvas(), false);
+    camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius;
+    camera.lowerAlphaLimit = camera.upperAlphaLimit = camera.alpha;
+    camera.lowerBetaLimit = camera.upperBetaLimit = camera.beta;
 
-      // Завантаження моделі з анімаціями
-      SceneLoader.ImportMesh(
-        "",
-        "assets/", // Заміна на реальний шлях
-        "soldier.glb",
-        scene,
-        (meshes, _, __, animationGroups) => {
-          const soldier = meshes[0] as Mesh;
-          soldier.position = new Vector3(0, 0, 0);
-          animationGroupsRef.current = animationGroups;
+    // Налаштування освітлення
+    const ambientLight = new HemisphericLight(
+      "ambientLight",
+      new Vector3(0, 1, 0),
+      scene
+    );
+    ambientLight.intensity = 0.9;
 
-          playAnimation("Talking1");
+    const directionalLight = new DirectionalLight(
+      "directionalLight",
+      new Vector3(-1, -2, -1),
+      scene
+    );
+    directionalLight.intensity = 1;
+    directionalLight.position = new Vector3(5, 10, 5);
 
-          // Убезпечення завершення лоадера тільки після появи моделі
-          setLoading(false);
-        }
-      );
-    };
-
-    const playAnimation = (animationName: string) => {
-      animationGroupsRef.current.forEach((group) => group.stop());
-      const animationGroup = animationGroupsRef.current.find(
-        (group) => group.name === animationName
-      );
-      animationGroup?.start(true);
-    };
-
-    onSceneReady(scene);
-
-    // Запуск рендеру сцени
     engine.runRenderLoop(() => {
       scene.render();
     });
 
-    // Зміна розміру при зміні розміру вікна
     window.addEventListener("resize", () => {
       engine.resize();
     });
@@ -103,15 +108,61 @@ export default function SoldierScene() {
     };
   }, []);
 
+  useEffect(() => {
+    // Відтворення анімації при зміні пропсу animation
+    if (animationGroupsRef.current.length > 0) {
+      playAnimation(animation);
+    }
+  }, [animation]);
+
+  // Ефект для анімації зміни позиції камери при зміні `chat`
+  useEffect(() => {
+    if (cameraRef.current) {
+      const targetPosition = chat
+        ? new Vector3(0.05, 2.3, -1.75)
+        : new Vector3(-0.3, 1.82, 0);
+      const targetRadius = chat ? 2 : 4.55;
+
+      // Анімація переміщення камери
+      Animation.CreateAndStartAnimation(
+        "cameraMove",
+        cameraRef.current,
+        "target",
+        30, // частота кадрів
+        40, // тривалість
+        cameraRef.current.target,
+        targetPosition,
+        Animation.ANIMATIONLOOPMODE_CONSTANT
+      );
+
+      Animation.CreateAndStartAnimation(
+        "cameraZoom",
+        cameraRef.current,
+        "radius",
+        30,
+        60,
+        cameraRef.current.radius,
+        targetRadius,
+        Animation.ANIMATIONLOOPMODE_CONSTANT
+      );
+    }
+  }, [chat]);
+
   return (
     <>
-      {loading && (
-        <div className={css.loader}>
-          <Loader size="80" />
-        </div>
-      )}
-      <div className={css.scene}>
-        <canvas ref={canvasRef} className={css.canvas} />
+      {loading && <Loader position="fixed" size="80" />}
+      <div className={clsx(css.scene, chat && css.sceneBordered)}>
+        <canvas
+          ref={canvasRef}
+          className={clsx(css.canvas, chat && css.canvasZoomed)}
+        />
+        {chat && (
+          <div className={css.chat}>
+            <button type="button" className={css.button}>
+              Задайте питання
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

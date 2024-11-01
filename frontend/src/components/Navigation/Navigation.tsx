@@ -12,12 +12,12 @@ export default function Navigation() {
           </NavLink>
         </li>
         <li className={css.item}>
-          <NavLink className={css.link} to="/">
+          <NavLink className={css.link} to="/about">
             Про проєкт
           </NavLink>
         </li>
         <li className={css.item}>
-          <NavLink className={css.link} to="/">
+          <NavLink className={css.link} to="/help">
             Допомогти
           </NavLink>
         </li>
