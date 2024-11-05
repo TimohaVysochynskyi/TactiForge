@@ -44,51 +44,6 @@
   animation: changeLeftColPosition 1.5s;
   left: 50px;
 }
-.colMiddle {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-.logo {
-  width: 100%;
-}
-.subtitle {
-  font-weight: 500;
-  font-size: 25px;
-  text-align: center;
-}
-.startIcon {
-  height: 15px;
-  width: 15px;
-  margin-right: 10px;
-}
-.startIcon path {
-  color: #000;
-}
-.startButton {
-  width: 100%;
-  padding: 20px 30px;
-  font-family: "Comfortaa", sans-serif;
-  color: #000;
-  text-transform: uppercase;
-  font-size: 25px;
-  font-weight: 700;
-  border-radius: 20px;
-  border: 2px solid #fff;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: 0.3s;
-}
-
-.startButton:hover {
-  background: none;
-  color: #fff;
-}
-.startButton:hover .startIcon path {
-  color: white;
-}
 
 @media screen and (max-width: 1024px) {
   .col:last-child {
@@ -101,18 +56,6 @@
   }
   .col:last-child {
     left: 50px;
-  }
-  .subtitle {
-    font-size: 17px;
-  }
-  .colMiddle {
-    gap: 5px 0;
-  }
-  .startButton {
-    font-size: 17px;
-    padding: 12px 17px;
-    border-radius: 18px;
-    margin-top: 10px;
   }
 }
 
@@ -144,14 +87,6 @@
     height: 370px;
     min-width: 250px;
   }
-  .subtitle {
-    font-size: 15px;
-  }
-  .startButton {
-    padding: 10px 15px;
-    font-size: 15px;
-    border-radius: 14px;
-  }
 }
 
 @media screen and (max-width: 640px) {
@@ -165,14 +100,6 @@
     min-width: 200px;
     height: 50%;
   }
-  .subtitle,
-  .startButton {
-    font-size: 14px;
-  }
-  .startButton {
-    border-radius: 12px;
-    padding: 8px 12px;
-  }
 }
 @media screen and (max-width: 540px) {
   .col:first-child {
@@ -181,39 +108,15 @@
   .col:last-child {
     display: none;
   }
-  .subtitle {
-    font-size: 21px;
-  }
-  .startButton {
-    font-size: 21px;
-    padding: 16px 21px;
-    border-radius: 18px;
-    margin-top: 15px;
-  }
 }
 
 @media screen and (max-width: 420px) {
-  .subtitle {
-    font-size: 15px;
-  }
-  .startButton {
-    padding: 10px 15px;
-    font-size: 15px;
-    border-radius: 14px;
-  }
+  /* Some sh1t goes here */
 }
 
 @media screen and (max-width: 365px) {
   .container {
     padding: 0 10px;
-  }
-  .subtitle,
-  .startButton {
-    font-size: 14px;
-  }
-  .startButton {
-    border-radius: 12px;
-    padding: 8px 12px;
   }
 }
 

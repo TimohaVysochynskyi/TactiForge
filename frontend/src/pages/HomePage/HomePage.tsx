@@ -1,8 +1,7 @@
 import { lazy, useEffect, useState } from "react";
 import clsx from "clsx";
-import { GrPlayFill } from "react-icons/gr";
-import Navigation from "../../components/Navigation/Navigation";
-import Socials from "../../components/Socials/Socials";
+import HomeMenu from "../../components/HomeMenu/HomeMenu";
+import HomeStaretd from "../../components/HomeStarted/HomeStarted";
 
 import css from "./HomePage.module.css";
 
@@ -28,27 +27,10 @@ export default function HomePage() {
         <div className={clsx(css.col, started && css.startedCol)}>
           {!started ? (
             <>
-              <Navigation />
-              <div className={css.colMiddle}>
-                <img
-                  src="/assets/logo.svg"
-                  alt="Логотип"
-                  className={css.logo}
-                />
-                <h2 className={css.subtitle}>Куємо безпечне майбутнє</h2>
-                <button
-                  className={css.startButton}
-                  onClick={() => setStarted(true)}
-                  type="button"
-                >
-                  <GrPlayFill className={css.startIcon} />
-                  Розпочати
-                </button>
-              </div>
-              <Socials />
+              <HomeMenu setStarted={() => setStarted(true)} />
             </>
           ) : (
-            "HI"
+            <HomeStaretd />
           )}
         </div>
 

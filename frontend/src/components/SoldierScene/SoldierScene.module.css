@@ -39,6 +39,15 @@
   border-radius: inherit;
   cursor: pointer;
   font-size: 18px;
-  font-family: "Comfortaa", sans-serif;
+  font-weight: 500;
+  font-family: "Montserrat Alternates", sans-serif;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 10px;
+}
+.arrow {
+  width: 24px;
+  height: 24px;
 }

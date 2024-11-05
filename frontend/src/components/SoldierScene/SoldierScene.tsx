@@ -14,6 +14,7 @@ import {
   Animation,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
+import { IoIosArrowUp } from "react-icons/io";
 
 import Loader from "../Loader/Loader";
 
@@ -159,7 +160,8 @@ export default function SoldierScene({ chat, animation }: Props) {
         {chat && (
           <div className={css.chat}>
             <button type="button" className={css.button}>
-              Задайте питання
+              вибрати питання
+              <IoIosArrowUp className={css.arrow} />
             </button>
           </div>
         )}
