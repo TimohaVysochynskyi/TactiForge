@@ -12,6 +12,7 @@ const SoldierScene = lazy(
 export default function HomePage() {
   const [started, setStarted] = useState(false);
   const [animation, setAnimation] = useState("Talking1");
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     if (started) {
@@ -20,6 +21,11 @@ export default function HomePage() {
       setAnimation("Talking1");
     }
   }, [started]);
+
+  const handleChatStatus = () => {
+    if (chatOpen) setChatOpen(false);
+    else setChatOpen(true);
+  };
 
   return (
     <>
@@ -35,7 +41,12 @@ export default function HomePage() {
         </div>
 
         <div className={clsx(css.col, started && css.startedCol)}>
-          <SoldierScene chat={started} animation={animation} />
+          <SoldierScene
+            chat={started}
+            chatOpen={chatOpen}
+            changeChatStatus={handleChatStatus}
+            animation={animation}
+          />
         </div>
       </main>
     </>

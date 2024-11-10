@@ -7,6 +7,7 @@
 }
 .name {
   font-size: 18px;
+  color: #fff;
 }
 .list {
   list-style: none;
@@ -23,6 +24,7 @@
   width: 30px;
   border-radius: 16px;
   transition: 0.3s;
+  color: #fff;
 }
 .item:nth-child(2) .link .icon {
   border-radius: 10px;

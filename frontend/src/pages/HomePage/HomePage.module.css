@@ -36,8 +36,8 @@
   animation: changeRightColPosition 1.5s;
   width: 70%;
   position: relative;
-  right: 50px;
-  height: 90%;
+  right: 0;
+  overflow-y: hidden;
 }
 .startedCol:last-child {
   order: 1;

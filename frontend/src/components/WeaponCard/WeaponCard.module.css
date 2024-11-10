@@ -1,0 +1,46 @@
+.container {
+  width: 420px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.imageWrapper {
+  width: 100%;
+  height: 310px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+.container:hover .imageWrapper .image {
+  width: 290px;
+  transform: rotate(20deg);
+}
+.row {
+  padding: 0 2px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: end;
+  height: 100%;
+}
+.name {
+  font-size: 44px;
+  font-family: Comfortaa;
+  color: var(--main-color);
+}
+.description {
+  font-weight: 500;
+  color: var(--secondary-color);
+}

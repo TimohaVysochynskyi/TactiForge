@@ -14,18 +14,26 @@ import {
   Animation,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
-import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 import Loader from "../Loader/Loader";
 
 import css from "./SoldierScene.module.css";
+import QuestionsList from "../QuestionsList/QuestionsList";
 
 type Props = {
   chat: boolean;
+  chatOpen: boolean;
+  changeChatStatus: () => void;
   animation: string;
 };
 
-export default function SoldierScene({ chat, animation }: Props) {
+export default function SoldierScene({
+  chat,
+  chatOpen,
+  changeChatStatus,
+  animation,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const cameraRef = useRef<ArcRotateCamera | null>(null); // Реф для камери
   const animationGroupsRef = useRef<AnimationGroup[]>([]);
@@ -158,11 +166,28 @@ export default function SoldierScene({ chat, animation }: Props) {
           className={clsx(css.canvas, chat && css.canvasZoomed)}
         />
         {chat && (
-          <div className={css.chat}>
-            <button type="button" className={css.button}>
-              вибрати питання
-              <IoIosArrowUp className={css.arrow} />
+          <div className={clsx(css.chat, chatOpen && css.chatOpened)}>
+            <button
+              type="button"
+              className={css.button}
+              onClick={changeChatStatus}
+            >
+              {chatOpen ? (
+                <>
+                  закрити меню <IoIosArrowDown className={css.arrow} />
+                </>
+              ) : (
+                <>
+                  вибрати питання
+                  <IoIosArrowUp className={css.arrow} />
+                </>
+              )}
             </button>
+            {chatOpen && (
+              <>
+                <QuestionsList />
+              </>
+            )}
           </div>
         )}
       </div>
