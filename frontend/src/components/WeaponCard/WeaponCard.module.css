@@ -11,6 +11,7 @@
 .imageWrapper {
   width: 100%;
   height: 310px;
+  min-height: 310px;
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 20px;
   display: flex;
@@ -25,7 +26,7 @@
 }
 .container:hover .imageWrapper .image {
   width: 290px;
-  transform: rotate(20deg);
+  transform: scale(1.5) rotate(5deg);
 }
 .row {
   padding: 0 2px;

@@ -1,7 +1,8 @@
 import { lazy, useEffect, useState } from "react";
 import clsx from "clsx";
 import HomeMenu from "../../components/HomeMenu/HomeMenu";
-import HomeStaretd from "../../components/HomeStarted/HomeStarted";
+import HomeStarted from "../../components/HomeStarted/HomeStarted";
+import weaponsData from "../../weapons.json";
 
 import css from "./HomePage.module.css";
 
@@ -36,7 +37,7 @@ export default function HomePage() {
               <HomeMenu setStarted={() => setStarted(true)} />
             </>
           ) : (
-            <HomeStaretd />
+            <HomeStarted weaponsData={weaponsData} />
           )}
         </div>
 

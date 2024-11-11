@@ -1,13 +1,18 @@
+import { WeaponPairType } from "../../types/Wapon.types";
 import WeaponPair from "../WeaponPair/WeaponPair";
 import css from "./HomeStarted.module.css";
 
-export default function HomeStaretd() {
+type Props = {
+  weaponsData: WeaponPairType[];
+};
+
+export default function HomeStaretd({ weaponsData }: Props) {
   return (
     <>
       <div className={css.container}>
-        <WeaponPair />
-        <WeaponPair />
-        <WeaponPair />
+        {weaponsData.map((weaponPair) => (
+          <WeaponPair pair={weaponPair} />
+        ))}
       </div>
     </>
   );

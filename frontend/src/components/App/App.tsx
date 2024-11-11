@@ -16,7 +16,7 @@ export default function App() {
       <Suspense fallback={<Loader position="fixed" size="80" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/weapons/:weaponId" element={<WeaponPage />} />
+          <Route path="/weapons/:media" element={<WeaponPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/help" element={<HelpPage />} />
         </Routes>
