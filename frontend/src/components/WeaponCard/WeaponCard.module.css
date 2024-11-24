@@ -29,19 +29,19 @@
   transform: scale(1.5) rotate(5deg);
 }
 .row {
-  padding: 0 2px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  align-items: end;
+  align-items: center;
   height: 100%;
 }
 .name {
-  font-size: 44px;
+  font-size: 200%;
   font-family: Comfortaa;
   color: var(--main-color);
 }
 .description {
   font-weight: 500;
+  width: 100px;
   color: var(--secondary-color);
 }

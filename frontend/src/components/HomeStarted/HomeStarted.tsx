@@ -4,15 +4,15 @@ import css from "./HomeStarted.module.css";
 
 type Props = {
   weaponsData: WeaponPairType[];
+  pair: number;
+  onNext: () => void;
 };
 
-export default function HomeStaretd({ weaponsData }: Props) {
+export default function HomeStaretd({ weaponsData, pair, onNext }: Props) {
   return (
     <>
       <div className={css.container}>
-        {weaponsData.map((weaponPair) => (
-          <WeaponPair pair={weaponPair} />
-        ))}
+        <WeaponPair pair={weaponsData[pair]} onNext={onNext} />
       </div>
     </>
   );

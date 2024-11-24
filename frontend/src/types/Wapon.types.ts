@@ -8,4 +8,5 @@ export type WeaponType = {
     country: string;
     year: string;
     media: string;
+    shortText: string;
 }

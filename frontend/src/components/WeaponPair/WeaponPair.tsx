@@ -5,9 +5,10 @@ import { WeaponPairType } from "../../types/Wapon.types";
 
 type Props = {
   pair: WeaponPairType;
+  onNext: () => void;
 };
 
-export default function WeaponPair({ pair }: Props) {
+export default function WeaponPair({ pair, onNext }: Props) {
   return (
     <>
       <div className={css.container}>
@@ -17,7 +18,7 @@ export default function WeaponPair({ pair }: Props) {
             <WeaponCard weapon={weapon} />
           ))}
         </div>
-        <button type="button" className={css.button}>
+        <button type="button" onClick={onNext} className={css.button}>
           Перейти далі
           <FaArrowRightLong className={css.arrow} />
         </button>
