@@ -8,7 +8,7 @@
   animation-delay: 4s; */
 }
 .col {
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,6 +43,12 @@
   order: 1;
   animation: changeLeftColPosition 1.5s;
   left: 50px;
+}
+
+@media screen and (max-width: 1440px) {
+  .startedCol {
+    height: 90%;
+  }
 }
 
 @media screen and (max-width: 1024px) {

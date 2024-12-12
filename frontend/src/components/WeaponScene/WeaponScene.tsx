@@ -30,11 +30,17 @@ export default function WeaponScene({ media }: Props) {
     const scene = new Scene(engine);
     scene.clearColor = new Color4(0.094, 0.094, 0.094, 1); // Темно-сірий фон (#181818)
 
-    SceneLoader.ImportMesh("", "/assets/", `${media}.glb`, scene, (meshes) => {
-      const model = meshes[0];
-      model.scaling = new Vector3(1, 1, 1);
-      model.position = new Vector3(0, 0, 0);
-    });
+    SceneLoader.ImportMesh(
+      "",
+      "/assets/models/",
+      `${media}.glb`,
+      scene,
+      (meshes) => {
+        const model = meshes[0];
+        model.scaling = new Vector3(1, 1, 1);
+        model.position = new Vector3(0, 0, 0);
+      }
+    );
 
     // Налаштування камери
     const camera = new ArcRotateCamera(

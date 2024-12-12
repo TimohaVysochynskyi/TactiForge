@@ -45,3 +45,10 @@
   width: 100px;
   color: var(--secondary-color);
 }
+
+@media screen and (max-width: 1440px) {
+  .container {
+    width: 350px;
+    height: 320px;
+  }
+}

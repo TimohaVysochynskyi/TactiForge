@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { fetchAllWeaponPairs } from "../../services/weapons";
 import { WeaponPairType } from "../../types/Wapon.types";
 
-import 'AdminPage.css'
+import "./AdminPage.css";
 
 const AdminWeaponPanel = () => {
   const [weaponPairs, setWeaponPairs] = useState<WeaponPairType[]>([]);

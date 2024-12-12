@@ -1,5 +1,8 @@
+import { useRef, useState } from "react";
+
 import clsx from "clsx";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { IoPause } from "react-icons/io5";
 
 import QuestionsList from "../QuestionsList/QuestionsList";
 
@@ -19,8 +22,13 @@ export default function Chat({
   pair,
   onNext,
 }: Props) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audioSrc, setAudioSrc] = useState<string>();
   return (
     <>
+      <button className={css.pauseBtn}>
+        <IoPause className={css.pauseIcon} />
+      </button>
       <div className={clsx(css.chat, chatOpen && css.chatOpened)}>
         <button type="button" className={css.button} onClick={changeChatStatus}>
           {chatOpen ? (

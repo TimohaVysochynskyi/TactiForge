@@ -18,6 +18,7 @@
     "@types/yup": "^0.32.0",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
+    "elevenlabs": "^0.18.1",
     "formik": "^2.4.6",
     "react": "^18.3.1",
     "react-babylonjs": "^3.2.1",

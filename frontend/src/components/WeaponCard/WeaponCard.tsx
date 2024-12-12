@@ -15,7 +15,7 @@ export default function WeaponCard({
       <Link to={`/weapons/${media}`} className={css.container}>
         <div className={css.imageWrapper}>
           <img
-            src={`/assets/${media}.png`}
+            src={`/assets/previews/${media}.png`}
             alt="Зображення зброї"
             className={css.image}
           />
