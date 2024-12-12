@@ -9,6 +9,7 @@ const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const AboutPage = lazy(() => import("../../pages/AboutPage/AboutPage"));
 const HelpPage = lazy(() => import("../../pages/HelpPage/HelpPage"));
 const WeaponPage = lazy(() => import("../../pages/WeaponPage/WeaponPage"));
+const AdminPage = lazy(() => import("../../pages/AdminPage/AdminPage"));
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/weapons/:media" element={<WeaponPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/admin/" element={<AdminPage />} />
         </Routes>
       </Suspense>
     </>

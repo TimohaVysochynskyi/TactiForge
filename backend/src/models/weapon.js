@@ -9,11 +9,19 @@ const weaponSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    country: {
+      type: String,
+      required: true,
+    },
+    year: {
       type: String,
       required: true,
     },
     media: {
+      type: String,
+      required: true,
+    },
+    shortText: {
       type: String,
       required: true,
     },
@@ -23,4 +31,5 @@ const weaponSchema = new mongoose.Schema(
     versionKey: false,
   },
 );
-export const UsersCollection = db.model('weapon', weaponSchema);
+
+export const WeaponsCollection = db.model('weapon', weaponSchema);

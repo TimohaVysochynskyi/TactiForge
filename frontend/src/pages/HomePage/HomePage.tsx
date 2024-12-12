@@ -2,10 +2,10 @@ import { lazy, useEffect, useState } from "react";
 import clsx from "clsx";
 import HomeMenu from "../../components/HomeMenu/HomeMenu";
 import HomeStarted from "../../components/HomeStarted/HomeStarted";
-import weaponsData from "../../weapons.json";
 
 import css from "./HomePage.module.css";
 import Chat from "../../components/Chat/Chat";
+import { fetchAllWeaponPairs } from "../../services/weapons";
 
 const SoldierScene = lazy(
   () => import("../../components/SoldierScene/SoldierScene")
@@ -15,6 +15,10 @@ export default function HomePage() {
   const [started, setStarted] = useState(false);
   const [animation, setAnimation] = useState("Talking1");
   const [chatOpen, setChatOpen] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [weaponsData, setWeaponsData] = useState([]);
   const [pairNumber, setPairNumber] = useState(0);
 
   useEffect(() => {
@@ -24,6 +28,22 @@ export default function HomePage() {
       setAnimation("Talking1");
     }
   }, [started]);
+
+  useEffect(() => {
+    async function fetchAllWeapons() {
+      try {
+        setLoading(true);
+        const response = await fetchAllWeaponPairs();
+        setWeaponsData(response.data);
+      } catch (error) {
+        setError(true);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAllWeapons();
+  }, []);
 
   const handleChatStatus = () => {
     if (chatOpen) setChatOpen(false);
