@@ -86,14 +86,14 @@ export default function SoldierScene({ chat, animation, children }: Props) {
       new Vector3(0, 1, 0),
       scene
     );
-    ambientLight.intensity = 0.9;
+    ambientLight.intensity = 1;
 
     const directionalLight = new DirectionalLight(
       "directionalLight",
       new Vector3(-1, -2, -1),
       scene
     );
-    directionalLight.intensity = 1;
+    directionalLight.intensity = 1.2;
     directionalLight.position = new Vector3(5, 10, 5);
 
     engine.runRenderLoop(() => {

@@ -26,9 +26,13 @@ export default function Chat({
   const [audioSrc, setAudioSrc] = useState<string>();
   return (
     <>
-      <button className={css.pauseBtn}>
-        <IoPause className={css.pauseIcon} />
-      </button>
+      <div className={css.audioWrapper}>
+        <audio ref={audioRef} src={`/assets/audio/${audioSrc}.mp3`} />
+        <button className={css.pauseBtn}>
+          <IoPause className={css.pauseIcon} />
+        </button>
+      </div>
+
       <div className={clsx(css.chat, chatOpen && css.chatOpened)}>
         <button type="button" className={css.button} onClick={changeChatStatus}>
           {chatOpen ? (
@@ -44,7 +48,12 @@ export default function Chat({
         </button>
         {chatOpen && (
           <>
-            <QuestionsList pair={pair} onNext={onNext} />
+            <QuestionsList
+              pair={pair}
+              onNext={onNext}
+              setAudio={setAudioSrc}
+              audioRef={audioRef}
+            />
           </>
         )}
       </div>

@@ -13,7 +13,7 @@ const SoldierScene = lazy(
 
 export default function HomePage() {
   const [started, setStarted] = useState(false);
-  const [animation, setAnimation] = useState("Talking1");
+  const [animation, setAnimation] = useState("Idle");
   const [chatOpen, setChatOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -23,11 +23,14 @@ export default function HomePage() {
 
   useEffect(() => {
     if (started) {
-      setAnimation("Talking3");
+      setAnimation("Talking");
     } else {
-      setAnimation("Talking1");
+      setAnimation("Idle");
     }
   }, [started]);
+  useEffect(() => {
+    setAnimation("Idle");
+  }, []);
 
   useEffect(() => {
     async function fetchAllWeapons() {

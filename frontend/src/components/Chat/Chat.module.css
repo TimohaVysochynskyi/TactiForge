@@ -47,3 +47,9 @@
 .chatOpened {
   height: auto;
 }
+
+.audioWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
