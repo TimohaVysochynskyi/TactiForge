@@ -7,15 +7,13 @@ import css from "./QuestionsList.module.css";
 type Props = {
   pair: WeaponPairType;
   onNext: () => void;
-  setAudio: (weapon: string) => void;
-  audioRef: React.MutableRefObject<HTMLAudioElement | null>;
+  playAudio: (weapon: string) => void;
 };
 
 export default function QuestionsList({
   pair: { weapons },
   onNext,
-  setAudio,
-  audioRef,
+  playAudio,
 }: Props) {
   return (
     <>
@@ -25,12 +23,7 @@ export default function QuestionsList({
             <button
               type="button"
               className={css.button}
-              onClick={() => {
-                setAudio(weapon.media);
-                if (audioRef.current) {
-                  audioRef.current.play();
-                }
-              }}
+              onClick={() => playAudio(weapon.media)}
             >
               Розкажи про {weapon.name}
             </button>
