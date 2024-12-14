@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   Engine,
   Scene,
@@ -14,6 +14,7 @@ import {
 import "@babylonjs/loaders/glTF";
 
 import css from "./WeaponScene.module.css";
+import Loader from "../Loader/Loader";
 
 type Props = {
   media: string;
@@ -22,13 +23,15 @@ type Props = {
 export default function WeaponScene({ media }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const cameraRef = useRef<ArcRotateCamera | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
-    scene.clearColor = new Color4(0.094, 0.094, 0.094, 1); // Темно-сірий фон (#181818)
+    //scene.clearColor = new Color4(0.094, 0.094, 0.094, 1); // Темно-сірий фон (#181818)
+    scene.clearColor = new Color4(0, 0, 0, 0);
 
     SceneLoader.ImportMesh(
       "",
@@ -39,6 +42,7 @@ export default function WeaponScene({ media }: Props) {
         const model = meshes[0];
         model.scaling = new Vector3(1, 1, 1);
         model.position = new Vector3(0, 0, 0);
+        setLoading(false);
       }
     );
 
@@ -101,6 +105,7 @@ export default function WeaponScene({ media }: Props) {
 
   return (
     <>
+      {loading && <Loader position="fixed" size="80" />}
       <canvas ref={canvasRef} className={css.canvas} />
     </>
   );

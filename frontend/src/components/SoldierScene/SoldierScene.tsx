@@ -71,7 +71,7 @@ export default function SoldierScene({ chat, animation, children }: Props) {
       Math.PI / 2,
       Math.PI / 2.2,
       4.65,
-      new Vector3(-0.3, 1.78, 0),
+      new Vector3(-0.3, 1.82, 0),
       scene
     );
     cameraRef.current = camera; // Збереження камери у реф
@@ -121,7 +121,7 @@ export default function SoldierScene({ chat, animation, children }: Props) {
     if (cameraRef.current) {
       const targetPosition = chat
         ? new Vector3(0.05, 2.3, -1.75)
-        : new Vector3(-0.3, 1.82, 0);
+        : new Vector3(-0.1, 1.82, 0);
       const targetRadius = chat ? 2 : 4.55;
 
       // Анімація переміщення камери
