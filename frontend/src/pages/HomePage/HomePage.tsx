@@ -6,6 +6,7 @@ import HomeStarted from "../../components/HomeStarted/HomeStarted";
 import css from "./HomePage.module.css";
 import Chat from "../../components/Chat/Chat";
 import { fetchAllWeaponPairs } from "../../services/weapons";
+import Loader from "../../components/Loader/Loader";
 
 const SoldierScene = lazy(
   () => import("../../components/SoldierScene/SoldierScene")
@@ -57,10 +58,15 @@ export default function HomePage() {
     setPairNumber(pairNumber + 1);
   };
 
+  const handlePrev = () => {
+    setPairNumber(pairNumber - 1);
+  };
+
   return (
     <>
       <main className={clsx(css.container, started && css.startedContainer)}>
         <div className={clsx(css.col, started && css.startedCol)}>
+          {loading && <Loader size="60" position="absolute" />}
           {!started ? (
             <>
               <HomeMenu setStarted={() => setStarted(true)} />
@@ -70,6 +76,7 @@ export default function HomePage() {
               weaponsData={weaponsData}
               pair={pairNumber}
               onNext={handleNext}
+              onPrev={handlePrev}
             />
           )}
         </div>

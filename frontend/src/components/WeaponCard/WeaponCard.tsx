@@ -8,11 +8,11 @@ type Props = {
 };
 
 export default function WeaponCard({
-  weapon: { name, country, year, media },
+  weapon: { _id, name, country, year, media },
 }: Props) {
   return (
     <>
-      <Link to={`/weapons/${media}`} className={css.container}>
+      <Link to={`/weapons/${_id}`} className={css.container}>
         <div className={css.imageWrapper}>
           <img
             src={`/assets/previews/${media}.png`}

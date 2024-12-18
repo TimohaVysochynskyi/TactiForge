@@ -28,9 +28,17 @@
   position: absolute;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .modalIcon {
-  width: calc(100% - 10px);
-  height: 100%;
-  color: #d0d0d0;
+  width: 45px;
+  height: 45px;
+  border: 4px solid #fff;
+  border-radius: 50px;
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  left: 0.3px;
 }

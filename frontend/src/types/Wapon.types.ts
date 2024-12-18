@@ -4,6 +4,7 @@ export type WeaponPairType = {
     weapons: WeaponType[];
 }
 export type WeaponType = {
+    _id: string;
     name: string;
     country: string;
     year: string;

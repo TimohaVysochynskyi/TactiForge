@@ -34,7 +34,7 @@
 .startedCol:first-child {
   order: 2;
   animation: changeRightColPosition 1.5s;
-  width: 70%;
+  width: 65%;
   position: relative;
   right: 0;
   overflow-y: hidden;
@@ -45,12 +45,21 @@
   left: 50px;
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1300px) {
+  .col {
+    height: 75%;
+  }
+  .startedCol:last-child {
+    left: 0;
+  }
 }
 
 @media screen and (max-width: 1024px) {
+  .col {
+    height: 60%;
+  }
   .col:last-child {
-    max-height: 600px;
+    min-width: 300px;
   }
 }
 @media screen and (max-width: 968px) {
