@@ -4,7 +4,7 @@ import WeaponPair from "../WeaponPair/WeaponPair";
 import { WeaponPairType } from "../../types/Wapon.types";
 
 import css from "./HomeStarted.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 
 type Props = {

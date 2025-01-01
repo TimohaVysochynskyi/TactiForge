@@ -7,20 +7,40 @@ import css from "./HomePage.module.css";
 import Chat from "../../components/Chat/Chat";
 import { fetchAllWeaponPairs } from "../../services/weapons";
 import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const SoldierScene = lazy(
   () => import("../../components/SoldierScene/SoldierScene")
 );
 
 export default function HomePage() {
-  const [started, setStarted] = useState(false);
+  // Зчитування станів з localStorage
+  const [started, setStarted] = useState(() => {
+    const saved = localStorage.getItem("started");
+    return saved ? JSON.parse(saved) : false;
+  });
+
+  const [pairNumber, setPairNumber] = useState(() => {
+    const saved = localStorage.getItem("pairNumber");
+    return saved && !isNaN(parseInt(saved, 10)) ? parseInt(saved, 10) : 0;
+  });
+
   const [animation, setAnimation] = useState("Idle");
   const [chatOpen, setChatOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [weaponsData, setWeaponsData] = useState([]);
-  const [pairNumber, setPairNumber] = useState(0);
+
+  // Ефект для збереження стану started у localStorage
+  useEffect(() => {
+    localStorage.setItem("started", JSON.stringify(started));
+  }, [started]);
+
+  // Ефект для збереження стану pairNumber у localStorage
+  useEffect(() => {
+    localStorage.setItem("pairNumber", pairNumber.toString());
+  }, [pairNumber]);
 
   useEffect(() => {
     if (started) {
@@ -29,9 +49,6 @@ export default function HomePage() {
       setAnimation("Idle");
     }
   }, [started]);
-  useEffect(() => {
-    setAnimation("Idle");
-  }, []);
 
   useEffect(() => {
     async function fetchAllWeapons() {
@@ -49,49 +66,53 @@ export default function HomePage() {
     fetchAllWeapons();
   }, []);
 
-  const handleChatStatus = () => {
-    if (chatOpen) setChatOpen(false);
-    else setChatOpen(true);
+  // Обробники для зміни станів
+  const handleStart = () => {
+    setStarted(true);
   };
 
   const handleNext = () => {
-    setPairNumber(pairNumber + 1);
+    if (pairNumber < weaponsData.length - 1) {
+      setPairNumber(pairNumber + 1);
+    }
   };
 
   const handlePrev = () => {
-    setPairNumber(pairNumber - 1);
+    if (pairNumber > 0) {
+      setPairNumber(pairNumber - 1);
+    }
   };
 
-  return (
-    <>
-      <main className={clsx(css.container, started && css.startedContainer)}>
-        <div className={clsx(css.col, started && css.startedCol)}>
-          {loading && <Loader size="60" position="absolute" />}
-          {!started ? (
-            <>
-              <HomeMenu setStarted={() => setStarted(true)} />
-            </>
-          ) : (
-            <HomeStarted
-              weaponsData={weaponsData}
-              pair={pairNumber}
-              onNext={handleNext}
-              onPrev={handlePrev}
-            />
-          )}
-        </div>
+  if (loading) return <Loader size="80" position="absolute" />;
+  if (error) return <ErrorMessage />;
 
-        <div className={clsx(css.col, started && css.startedCol)}>
-          <SoldierScene chat={started} animation={animation}>
-            <Chat
-              chatOpen={chatOpen}
-              changeChatStatus={handleChatStatus}
-              pair={weaponsData[pairNumber]}
-              onNext={handleNext}
-            />
-          </SoldierScene>
-        </div>
-      </main>
-    </>
+  return (
+    <main className={clsx(css.container, started && css.startedContainer)}>
+      <div className={clsx(css.col, started && css.startedCol)}>
+        {!started ? (
+          <HomeMenu setStarted={handleStart} />
+        ) : weaponsData.length > 0 ? (
+          <HomeStarted
+            weaponsData={weaponsData}
+            pair={pairNumber}
+            onNext={handleNext}
+            onPrev={handlePrev}
+          />
+        ) : (
+          <div>Дані відсутні!</div>
+        )}
+      </div>
+
+      <div className={clsx(css.col, started && css.startedCol)}>
+        <SoldierScene chat={started} animation={animation}>
+          <Chat
+            chatOpen={chatOpen}
+            changeChatStatus={() => setChatOpen((prev) => !prev)}
+            pair={weaponsData[pairNumber]}
+            onNext={handleNext}
+          />
+        </SoldierScene>
+      </div>
+    </main>
   );
 }

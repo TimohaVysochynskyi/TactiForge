@@ -13,7 +13,9 @@ export default function WeaponPair({ pair }: Props) {
         <h3 className={css.title}>{pair.name}</h3>
         <div className={css.row}>
           {pair.weapons.map((weapon) => (
-            <WeaponCard weapon={weapon} />
+            <div key={weapon._id}>
+              <WeaponCard weapon={weapon} />
+            </div>
           ))}
         </div>
       </div>
