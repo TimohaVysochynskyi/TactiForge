@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import {
   Engine,
   Scene,
-  ArcRotateCamera,
+  FreeCamera,
   HemisphericLight,
   DirectionalLight,
   PointLight,
@@ -22,7 +22,6 @@ type Props = {
 
 export default function WeaponScene({ media }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const cameraRef = useRef<ArcRotateCamera | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export default function WeaponScene({ media }: Props) {
 
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
-    //scene.clearColor = new Color4(0.094, 0.094, 0.094, 1); // Темно-сірий фон (#181818)
     scene.clearColor = new Color4(0, 0, 0, 0);
 
     SceneLoader.ImportMesh(
@@ -40,23 +38,32 @@ export default function WeaponScene({ media }: Props) {
       scene,
       (meshes) => {
         const model = meshes[0];
-        model.scaling = new Vector3(1, 1, 1);
-        model.position = new Vector3(0, 0, 0);
+        model.scaling = new Vector3(1, 1, -1);
+        model.position = new Vector3(0, 0, 5);
+        model.rotation = new Vector3(0, 1.5, 0);
+
         setLoading(false);
       }
     );
 
-    // Налаштування камери
-    const camera = new ArcRotateCamera(
+    // Створюємо FreeCamera
+    const camera = new FreeCamera(
       "camera",
-      Math.PI / 1.1,
-      Math.PI / 2,
-      10,
-      new Vector3(0, 0.5, 1.6),
+      new Vector3(0, 0, -5), // Початкова позиція камери
       scene
     );
-    cameraRef.current = camera;
-    camera.attachControl(scene.getEngine().getRenderingCanvas(), false);
+    camera.setTarget(Vector3.Zero()); // Камера дивиться на центр сцени
+    camera.attachControl(canvasRef.current, true);
+
+    // Налаштування швидкості переміщення та обертання
+    camera.speed = 0.4; // Швидкість переміщення (менше значення = повільніше)
+    camera.angularSensibility = 4000; // Швидкість обертання (більше значення = повільніше)
+
+    // Налаштовуємо клавіші для руху
+    camera.keysUp.push(87); // W
+    camera.keysDown.push(83); // S
+    camera.keysLeft.push(65); // A
+    camera.keysRight.push(68); // D
 
     // Основне освітлення
     const ambientLight = new HemisphericLight(
@@ -64,7 +71,7 @@ export default function WeaponScene({ media }: Props) {
       new Vector3(0, 1, 0),
       scene
     );
-    ambientLight.intensity = 1;
+    ambientLight.intensity = 2;
 
     // Спрямоване світло для підкреслення текстур
     const directionalLightFront = new DirectionalLight(
@@ -72,22 +79,20 @@ export default function WeaponScene({ media }: Props) {
       new Vector3(1, 1, 0),
       scene
     );
-    directionalLightFront.intensity = 2;
-    directionalLightFront.diffuse = new Color3(1, 0.9, 0.8); // Теплий відтінок
+    directionalLightFront.intensity = 3;
+    directionalLightFront.diffuse = new Color3(1, 0.9, 0.8);
 
-    // Спрямоване світло для підкреслення текстур
     const directionalLightBack = new DirectionalLight(
       "directionalLightBack",
       new Vector3(-1, 1, 0),
       scene
     );
-    directionalLightBack.intensity = 2;
-    directionalLightBack.diffuse = new Color3(1, 0.9, 0.8); // Теплий відтінок
+    directionalLightBack.intensity = 3;
+    directionalLightBack.diffuse = new Color3(1, 0.9, 0.8);
 
-    // Кольорове підсвічування ззаду
     const blueLight = new PointLight("blueLight", new Vector3(0, 2, -5), scene);
     blueLight.intensity = 5;
-    blueLight.diffuse = new Color3(0.4, 0.4, 0.8); // Блакитний відтінок
+    blueLight.diffuse = new Color3(0.4, 0.4, 0.8);
 
     // Рендеринг сцени
     engine.runRenderLoop(() => {
