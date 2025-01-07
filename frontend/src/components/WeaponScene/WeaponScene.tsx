@@ -18,9 +18,10 @@ import Loader from "../Loader/Loader";
 
 type Props = {
   media: string;
+  rotationEnabled: boolean;
 };
 
-export default function WeaponScene({ media }: Props) {
+export default function WeaponScene({ media, rotationEnabled }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,13 +32,15 @@ export default function WeaponScene({ media }: Props) {
     const scene = new Scene(engine);
     scene.clearColor = new Color4(0, 0, 0, 0);
 
+    let model: any = null;
+
     SceneLoader.ImportMesh(
       "",
       "/assets/models/",
       `${media}.glb`,
       scene,
       (meshes) => {
-        const model = meshes[0];
+        model = meshes[0];
         model.scaling = new Vector3(1, 1, -1);
         model.position = new Vector3(0, 0, 5);
         model.rotation = new Vector3(0, 1.5, 0);
@@ -96,6 +99,11 @@ export default function WeaponScene({ media }: Props) {
 
     // Рендеринг сцени
     engine.runRenderLoop(() => {
+      if (model && rotationEnabled) {
+        // Обертання моделі
+        model.rotation.y += 0.0025; // Регулюйте швидкість обертання
+      }
+
       scene.render();
     });
 
@@ -106,7 +114,7 @@ export default function WeaponScene({ media }: Props) {
     return () => {
       engine.dispose();
     };
-  }, []);
+  }, [rotationEnabled]);
 
   return (
     <>

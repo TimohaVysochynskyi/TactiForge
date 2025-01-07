@@ -65,6 +65,9 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .btnWrapper {
+    margin-top: 20px;
+  }
   .button {
     font-size: 20px;
     padding: 10px 35px;

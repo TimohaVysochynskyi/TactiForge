@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.btn {
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border: 3px solid #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #fff;
+  border-radius: 50px;
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  left: 0.3px;
+}

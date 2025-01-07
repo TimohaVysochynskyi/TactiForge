@@ -50,6 +50,9 @@
   .col {
     height: 75%;
   }
+  .startedCol:first-child {
+    height: 85%;
+  }
   .startedCol:last-child {
     left: 0;
   }

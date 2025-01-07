@@ -120,7 +120,7 @@ export default function SoldierScene({ chat, animation, children }: Props) {
   useEffect(() => {
     if (cameraRef.current) {
       const targetPosition = chat
-        ? new Vector3(0.05, 2.3, -1.75)
+        ? new Vector3(0.05, 2.35, -2.3)
         : new Vector3(-0.1, 1.82, 0);
       const targetRadius = chat ? 2 : 4.55;
 
@@ -130,7 +130,7 @@ export default function SoldierScene({ chat, animation, children }: Props) {
         cameraRef.current,
         "target",
         30, // частота кадрів
-        40, // тривалість
+        0, // тривалість
         cameraRef.current.target,
         targetPosition,
         Animation.ANIMATIONLOOPMODE_CONSTANT
@@ -141,7 +141,7 @@ export default function SoldierScene({ chat, animation, children }: Props) {
         cameraRef.current,
         "radius",
         30,
-        60,
+        0,
         cameraRef.current.radius,
         targetRadius,
         Animation.ANIMATIONLOOPMODE_CONSTANT

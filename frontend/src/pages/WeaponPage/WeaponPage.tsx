@@ -6,20 +6,20 @@ import WeaponLabel from "../../components/WeaponLabel/WeaponLabel";
 import WeaponModal from "../../components/WeaponModal/WeaponModal";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import { BsQuestionLg } from "react-icons/bs";
-import { IoClose } from "react-icons/io5";
 
 import { fetchWeaponWithId } from "../../services/weapons";
 
 import { WeaponType } from "../../types/Wapon.types";
 
 import css from "./WeaponPage.module.css";
+import ButtonsList from "../../components/ButtonsList/ButtonsList";
 
 export default function WeaponPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [weaponData, setWeaponData] = useState<WeaponType>();
   const [modalOpen, setModalOpen] = useState(false);
+  const [rotationEnabled, setRotationEnabled] = useState(false);
   const { id } = useParams<string>();
 
   useEffect(() => {
@@ -52,7 +52,10 @@ export default function WeaponPage() {
         {error && <ErrorMessage />}
         {weaponData && (
           <>
-            <WeaponScene media={weaponData.media} />
+            <WeaponScene
+              media={weaponData.media}
+              rotationEnabled={rotationEnabled}
+            />
             <WeaponLabel weapon={weaponData} />
             <div className={css.modalWrapper}>
               {modalOpen && (
@@ -61,17 +64,12 @@ export default function WeaponPage() {
                 </div>
               )}
 
-              <button
-                type="button"
-                className={css.modalBtn}
-                onClick={() => setModalOpen(!modalOpen)}
-              >
-                {modalOpen ? (
-                  <IoClose className={css.modalIcon} />
-                ) : (
-                  <BsQuestionLg className={css.modalIcon} />
-                )}
-              </button>
+              <ButtonsList
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                rotationEnabled={rotationEnabled}
+                setRotationEnabled={setRotationEnabled}
+              />
             </div>
           </>
         )}
