@@ -6,7 +6,7 @@ import { IoPause, IoPlay, IoReload } from "react-icons/io5";
 
 import QuestionsList from "../QuestionsList/QuestionsList";
 
-import { WeaponPairType } from "../../types/Wapon.types";
+import { WeaponPairType } from "../../types/Weapon.types";
 
 import css from "./Chat.module.css";
 

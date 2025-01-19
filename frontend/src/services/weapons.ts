@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiDomain } from "../constants.ts";
-import { WeaponType } from "../types/Wapon.types.ts";
+import { WeaponType } from "../types/Weapon.types.ts";
 
 const URL = `${apiDomain}/weapons`;
 

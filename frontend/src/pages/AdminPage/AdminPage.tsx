@@ -3,7 +3,7 @@ import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { fetchAllWeaponPairs } from "../../services/weapons";
-import { WeaponPairType } from "../../types/Wapon.types";
+import { WeaponPairType } from "../../types/Weapon.types";
 
 import "./AdminPage.css";
 

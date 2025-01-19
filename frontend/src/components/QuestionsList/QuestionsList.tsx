@@ -1,6 +1,6 @@
 import { FaArrowRightLong } from "react-icons/fa6";
 
-import { WeaponPairType } from "../../types/Wapon.types";
+import { WeaponPairType } from "../../types/Weapon.types";
 
 import css from "./QuestionsList.module.css";
 

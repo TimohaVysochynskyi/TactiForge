@@ -1,20 +1,19 @@
 import { BsQuestionLg, BsEyeFill } from "react-icons/bs";
 import { LuComponent } from "react-icons/lu";
 import { TbSettingsAutomation } from "react-icons/tb";
-import { IoClose } from "react-icons/io5";
 
 import css from "./ButtonsList.module.css";
 
 type Props = {
-  modalOpen: boolean;
-  setModalOpen: (value: boolean) => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: (value: boolean) => void;
   rotationEnabled: boolean;
   setRotationEnabled: (values: boolean) => void;
 };
 
 export default function ButtonsList({
-  modalOpen,
-  setModalOpen,
+  sidebarOpen,
+  setSidebarOpen,
   rotationEnabled,
   setRotationEnabled,
 }: Props) {
@@ -37,13 +36,9 @@ export default function ButtonsList({
         <button
           type="button"
           className={css.btn}
-          onClick={() => setModalOpen(!modalOpen)}
+          onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          {modalOpen ? (
-            <IoClose className={css.icon} />
-          ) : (
-            <BsQuestionLg className={css.icon} />
-          )}
+          <BsQuestionLg className={css.icon} />
         </button>
       </div>
     </>

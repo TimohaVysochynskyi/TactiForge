@@ -3,22 +3,23 @@ import { Navigate, useParams } from "react-router-dom";
 import AppBar from "../../components/AppBar/AppBar";
 import WeaponScene from "../../components/WeaponScene/WeaponScene";
 import WeaponLabel from "../../components/WeaponLabel/WeaponLabel";
-import WeaponModal from "../../components/WeaponModal/WeaponModal";
+import WeaponSideBar from "../../components/WeaponSideBar/WeaponSidebar";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 import { fetchWeaponWithId } from "../../services/weapons";
 
-import { WeaponType } from "../../types/Wapon.types";
+import { WeaponType } from "../../types/Weapon.types";
 
 import css from "./WeaponPage.module.css";
 import ButtonsList from "../../components/ButtonsList/ButtonsList";
+import clsx from "clsx";
 
 export default function WeaponPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [weaponData, setWeaponData] = useState<WeaponType>();
-  const [modalOpen, setModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rotationEnabled, setRotationEnabled] = useState(false);
   const { id } = useParams<string>();
 
@@ -57,16 +58,22 @@ export default function WeaponPage() {
               rotationEnabled={rotationEnabled}
             />
             <WeaponLabel weapon={weaponData} />
-            <div className={css.modalWrapper}>
-              {modalOpen && (
-                <div className={css.modal}>
-                  <WeaponModal />
-                </div>
-              )}
+            <div className={css.sidebarWrapper}>
+              <div
+                className={clsx(
+                  css.sidebar,
+                  sidebarOpen ? css.sidebarOpen : css.sidebarClose
+                )}
+              >
+                <WeaponSideBar
+                  setSidebarOpen={setSidebarOpen}
+                  weaponData={weaponData}
+                />
+              </div>
 
               <ButtonsList
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpen}
+                sidebarOpen={sidebarOpen}
+                setSidebarOpen={setSidebarOpen}
                 rotationEnabled={rotationEnabled}
                 setRotationEnabled={setRotationEnabled}
               />

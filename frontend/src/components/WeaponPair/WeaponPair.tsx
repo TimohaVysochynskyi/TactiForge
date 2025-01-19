@@ -1,6 +1,6 @@
 import WeaponCard from "../WeaponCard/WeaponCard";
 import css from "./WeaponPair.module.css";
-import { WeaponPairType } from "../../types/Wapon.types";
+import { WeaponPairType } from "../../types/Weapon.types";
 
 type Props = {
   pair: WeaponPairType;

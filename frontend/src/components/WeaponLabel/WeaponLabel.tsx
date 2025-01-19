@@ -1,4 +1,4 @@
-import { WeaponType } from "../../types/Wapon.types";
+import { WeaponType } from "../../types/Weapon.types";
 import css from "./WeaponLabel.module.css";
 
 type Props = {

@@ -1,7 +1,7 @@
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import WeaponPair from "../WeaponPair/WeaponPair";
 
-import { WeaponPairType } from "../../types/Wapon.types";
+import { WeaponPairType } from "../../types/Weapon.types";
 
 import css from "./HomeStarted.module.css";
 import { useState } from "react";

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { WeaponType } from "../../types/Wapon.types";
+import { WeaponType } from "../../types/Weapon.types";
 
 import css from "./WeaponCard.module.css";
 
