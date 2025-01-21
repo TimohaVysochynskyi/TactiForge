@@ -15,31 +15,47 @@ type Props = {
   changeChatStatus: () => void;
   pair: WeaponPairType;
   onNext: () => void;
+  onAudio: (value: boolean) => void;
+  setAnimatedWeapon: (id: string) => void;
 };
 export default function Chat({
   chatOpen,
   changeChatStatus,
   pair,
   onNext,
+  onAudio,
+  setAnimatedWeapon,
 }: Props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const [audioPlaying, setAudioPlaying] = useState<boolean>();
   const [audioProgress, setAudioProgress] = useState(0);
 
-  const handleLoadAudio = (weapon: string) => {
-    setAudioSrc(weapon);
+  const handleLoadAudio = async (weapon: string) => {
+    await setAudioSrc(weapon);
+
     if (audioRef.current) {
-      setAudioPlaying(true);
-      audioRef.current.play();
+      audioRef.current
+        .play()
+        .then(() => {
+          setAudioPlaying(true);
+        })
+        .catch((error) => {
+          console.error("Audio play failed:", error);
+        });
     }
   };
 
   const toggleAudioPlay = () => {
     if (!audioRef.current) return;
 
-    if (audioPlaying) audioRef.current.pause();
-    else audioRef.current.play();
+    if (audioPlaying) {
+      audioRef.current.pause();
+      onAudio(false);
+    } else {
+      audioRef.current.play();
+      onAudio(true);
+    }
 
     setAudioPlaying(!audioPlaying);
   };
@@ -109,6 +125,7 @@ export default function Chat({
               pair={pair}
               onNext={onNext}
               playAudio={handleLoadAudio}
+              setAnimatedWeapon={setAnimatedWeapon}
             />
           </>
         )}

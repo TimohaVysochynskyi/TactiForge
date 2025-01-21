@@ -111,18 +111,20 @@ export default function SoldierScene({ chat, animation, children }: Props) {
 
   useEffect(() => {
     // Відтворення анімації при зміні пропсу animation
-    if (animationGroupsRef.current.length > 0) {
-      playAnimation(animation);
-    }
+    setLoading(true);
+    setTimeout(() => {
+      if (animationGroupsRef.current.length > 0) {
+        playAnimation(animation);
+      }
+      setLoading(false);
+    }, 250);
   }, [animation]);
 
   // Ефект для анімації зміни позиції камери при зміні `chat`
   useEffect(() => {
     if (cameraRef.current) {
-      const targetPosition = chat
-        ? new Vector3(0.05, 2.35, -2.3)
-        : new Vector3(-0.1, 1.82, 0);
-      const targetRadius = chat ? 2 : 4.55;
+      const targetPosition = new Vector3(0, 1.82, 0);
+      const targetRadius = 5;
 
       // Анімація переміщення камери
       Animation.CreateAndStartAnimation(
@@ -151,12 +153,12 @@ export default function SoldierScene({ chat, animation, children }: Props) {
 
   return (
     <>
-      {loading && <Loader position="fixed" size="80" />}
       <div className={clsx(css.scene, chat && css.sceneBordered)}>
         <canvas
           ref={canvasRef}
           className={clsx(css.canvas, chat && css.canvasZoomed)}
         />
+        {loading && <Loader position="absolute" size="80" />}
         {chat && children && <>{children}</>}
       </div>
     </>

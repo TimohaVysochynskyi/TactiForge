@@ -1,6 +1,6 @@
-import { BsQuestionLg, BsEyeFill } from "react-icons/bs";
-import { LuComponent } from "react-icons/lu";
-import { TbSettingsAutomation } from "react-icons/tb";
+import { BsQuestionLg } from "react-icons/bs";
+import { FiRotateCw } from "react-icons/fi";
+import { HiArrowsPointingOut } from "react-icons/hi2";
 
 import css from "./ButtonsList.module.css";
 
@@ -25,13 +25,13 @@ export default function ButtonsList({
           className={css.btn}
           onClick={() => setRotationEnabled(!rotationEnabled)}
         >
-          <BsEyeFill className={css.icon} />
+          <FiRotateCw className={css.icon} />
         </button>
+        {/* <button type="button" className={css.btn}>
+          <GiPlayButton className={css.icon} />
+        </button> */}
         <button type="button" className={css.btn}>
-          <TbSettingsAutomation className={css.icon} />
-        </button>
-        <button type="button" className={css.btn}>
-          <LuComponent className={css.icon} />
+          <HiArrowsPointingOut className={css.icon} />
         </button>
         <button
           type="button"

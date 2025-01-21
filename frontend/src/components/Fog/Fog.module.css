@@ -12,109 +12,36 @@
 .fog {
   height: 100%;
   position: absolute;
-  width: 200%;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 .fog > div {
-  float: left;
   height: 100%;
-  width: 50%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .fog:nth-child(1) {
-  -webkit-animation: foglayer_01_opacity 10s linear infinite,
-    foglayer_moveme 15s linear infinite;
-  -moz-animation: foglayer_01_opacity 10s linear infinite,
-    foglayer_moveme 15s linear infinite;
-  animation: foglayer_01_opacity 10s linear infinite,
-    foglayer_moveme 15s linear infinite;
+  animation: foglayer_01_opacity 40s linear infinite,
+    foglayer_01_move 40s linear infinite;
 }
 .fog:nth-child(2),
 .fog:nth-child(3) {
-  -webkit-animation: foglayer_02_opacity 21s linear infinite,
-    foglayer_moveme 13s linear infinite;
-  -moz-animation: foglayer_02_opacity 21s linear infinite,
-    foglayer_moveme 13s linear infinite;
-  animation: foglayer_02_opacity 21s linear infinite,
-    foglayer_moveme 13s linear infinite;
+  animation: foglayer_02_opacity 40s linear infinite,
+    foglayer_02_move 40s linear infinite;
 }
 
-/* ---------- Moving Fog ---------- */
-/*
-  'size: cover' || 'size: 100%'; results remain the same
-  'attachment: scroll' can be added or removed; results remain the same
-  'attachment: fixed' causing unexpected results in Chrome
-  'repeat-x' || 'no-repeat'; results remain the same
-*/
-.fog:nth-child(1) > div {
+.image01 {
   background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png")
     center center/cover no-repeat transparent;
 }
-.fog:nth-child(2) > div,
-.fog:nth-child(3) > div {
+.image02 {
   background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png")
     center center/cover no-repeat transparent;
 }
 
-/* ---------- Keyframe Layer 1 ---------- */
-@-webkit-keyframes foglayer_01_opacity {
-  0% {
-    opacity: 0.1;
-  }
-  22% {
-    opacity: 0.5;
-  }
-  40% {
-    opacity: 0.28;
-  }
-  58% {
-    opacity: 0.4;
-  }
-  80% {
-    opacity: 0.16;
-  }
-  100% {
-    opacity: 0.1;
-  }
-}
-@-moz-keyframes foglayer_01_opacity {
-  0% {
-    opacity: 0.1;
-  }
-  22% {
-    opacity: 0.5;
-  }
-  40% {
-    opacity: 0.28;
-  }
-  58% {
-    opacity: 0.4;
-  }
-  80% {
-    opacity: 0.16;
-  }
-  100% {
-    opacity: 0.1;
-  }
-}
-@-o-keyframes foglayer_01_opacity {
-  0% {
-    opacity: 0.1;
-  }
-  22% {
-    opacity: 0.5;
-  }
-  40% {
-    opacity: 0.28;
-  }
-  58% {
-    opacity: 0.4;
-  }
-  80% {
-    opacity: 0.16;
-  }
-  100% {
-    opacity: 0.1;
-  }
-}
 @keyframes foglayer_01_opacity {
   0% {
     opacity: 0.1;
@@ -135,58 +62,7 @@
     opacity: 0.1;
   }
 }
-/* ---------- Keyframe Layer 2 ---------- */
-@-webkit-keyframes foglayer_02_opacity {
-  0% {
-    opacity: 0.5;
-  }
-  25% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  80% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-@-moz-keyframes foglayer_02_opacity {
-  0% {
-    opacity: 0.5;
-  }
-  25% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  80% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-@-o-keyframes foglayer_02_opacity {
-  0% {
-    opacity: 0.5;
-  }
-  25% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  80% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
+
 @keyframes foglayer_02_opacity {
   0% {
     opacity: 0.5;
@@ -204,106 +80,33 @@
     opacity: 0.5;
   }
 }
-/* ---------- Keyframe Layer 3 ---------- */
-@-webkit-keyframes foglayer_03_opacity {
+
+@keyframes foglayer_01_move {
   0% {
-    opacity: 0.8;
+    width: 100%;
   }
-  27% {
-    opacity: 0.2;
+  50% {
+    width: 150%;
   }
-  52% {
-    opacity: 0.6;
-  }
-  68% {
-    opacity: 0.3;
+  80% {
+    width: 100%;
   }
   100% {
-    opacity: 0.8;
+    width: 100%;
   }
 }
-@-moz-keyframes foglayer_03_opacity {
+@keyframes foglayer_02_move {
   0% {
-    opacity: 0.8;
+    width: 150%;
   }
-  27% {
-    opacity: 0.2;
+  50% {
+    width: 100%;
   }
-  52% {
-    opacity: 0.6;
-  }
-  68% {
-    opacity: 0.3;
+  80% {
+    width: 150%;
   }
   100% {
-    opacity: 0.8;
-  }
-}
-@-o-keyframes foglayer_03_opacity {
-  0% {
-    opacity: 0.8;
-  }
-  27% {
-    opacity: 0.2;
-  }
-  52% {
-    opacity: 0.6;
-  }
-  68% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.8;
-  }
-}
-@keyframes foglayer_03_opacity {
-  0% {
-    opacity: 0.8;
-  }
-  27% {
-    opacity: 0.2;
-  }
-  52% {
-    opacity: 0.6;
-  }
-  68% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.8;
-  }
-}
-/* ---------- Keyframe moveMe ---------- */
-@-webkit-keyframes foglayer_moveme {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
-}
-@-moz-keyframes foglayer_moveme {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
-}
-@-o-keyframes foglayer_moveme {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
-  }
-}
-@keyframes foglayer_moveme {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
+    width: 150%;
   }
 }
 

@@ -4,9 +4,10 @@ import { WeaponPairType } from "../../types/Weapon.types";
 
 type Props = {
   pair: WeaponPairType;
+  animatedWeapon: string | null;
 };
 
-export default function WeaponPair({ pair }: Props) {
+export default function WeaponPair({ pair, animatedWeapon }: Props) {
   return (
     <>
       <div className={css.container}>
@@ -14,7 +15,7 @@ export default function WeaponPair({ pair }: Props) {
         <div className={css.row}>
           {pair.weapons.map((weapon) => (
             <div key={weapon._id}>
-              <WeaponCard weapon={weapon} />
+              <WeaponCard weapon={weapon} animatedWeapon={animatedWeapon} />
             </div>
           ))}
         </div>

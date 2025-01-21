@@ -12,6 +12,7 @@ type Props = {
   pair: number;
   onNext: () => void;
   onPrev: () => void;
+  animatedWeapon: string | null;
 };
 
 export default function HomeStaretd({
@@ -19,6 +20,7 @@ export default function HomeStaretd({
   pair,
   onNext,
   onPrev,
+  animatedWeapon,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -28,7 +30,10 @@ export default function HomeStaretd({
         <div
           className={clsx(isVisible ? css.showAnimation : css.hideAnimation)}
         >
-          <WeaponPair pair={weaponsData[pair]} />
+          <WeaponPair
+            pair={weaponsData[pair]}
+            animatedWeapon={animatedWeapon}
+          />
         </div>
         <div className={css.btnWrapper}>
           {pair > 0 && (

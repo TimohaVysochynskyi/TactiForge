@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
+import { IoTriangleSharp } from "react-icons/io5";
 import css from "./AppBar.module.css";
 
 export default function AppBar() {
@@ -7,10 +8,13 @@ export default function AppBar() {
     <>
       <header className={css.header}>
         <div className={css.logoWrapper}>
-          <Link to="/">
-            <img src="/assets/logo.svg" alt="Логотип" className={css.logo} />
+          <Link to="/" className={css.link}>
+            <div className={css.titleWrapper}>
+              <IoTriangleSharp className={css.icon} />
+              <h1 className={css.title}>DigitalArmsLab</h1>
+            </div>
           </Link>
-          <h2 className={css.subtitle}>Куємо безпечне майбутнє</h2>
+          <h2 className={css.subtitle}>Лабораторія безпечного майбутнього</h2>
         </div>
         <div className={css.navigation}>
           <Navigation />

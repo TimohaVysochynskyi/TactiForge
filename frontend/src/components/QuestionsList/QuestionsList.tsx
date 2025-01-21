@@ -8,12 +8,14 @@ type Props = {
   pair: WeaponPairType;
   onNext: () => void;
   playAudio: (weapon: string) => void;
+  setAnimatedWeapon: (id: string) => void;
 };
 
 export default function QuestionsList({
   pair: { weapons },
   onNext,
   playAudio,
+  setAnimatedWeapon,
 }: Props) {
   return (
     <>
@@ -23,7 +25,10 @@ export default function QuestionsList({
             <button
               type="button"
               className={css.button}
-              onClick={() => playAudio(weapon.media)}
+              onClick={() => {
+                playAudio(weapon.media);
+                setAnimatedWeapon(weapon._id);
+              }}
             >
               Розкажи про {weapon.name}
             </button>

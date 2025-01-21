@@ -18,10 +18,28 @@
 .logo {
   width: 250px;
 }
-.subtitle {
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon {
+  color: #fff;
+  width: 48px;
+  height: 48px;
+}
+.subtitle,
+.title {
   font-weight: 500;
   font-size: 18px;
   text-align: center;
   color: #fff;
   margin-top: 10px;
+}
+.title {
+  font-size: 42px;
+  font-family: "Comfortaa";
+}
+.link {
+  text-decoration: none;
 }
