@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import AppBar from "../../components/AppBar/AppBar";
 import WeaponScene from "../../components/WeaponScene/WeaponScene";
 import WeaponLabel from "../../components/WeaponLabel/WeaponLabel";
-// import WeaponSideBar from "../../components/WeaponSideBar/WeaponSidebar";
+import WeaponSideBar from "../../components/WeaponSideBar/WeaponSidebar";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
@@ -65,10 +65,12 @@ export default function WeaponPage() {
                   sidebarOpen ? css.sidebarOpen : css.sidebarClose
                 )}
               >
-                {/*<WeaponSideBar
-                  setSidebarOpen={setSidebarOpen}
-                  weaponData={weaponData}
-                />*/}
+                {weaponData.characteristics && (
+                  <WeaponSideBar
+                    setSidebarOpen={setSidebarOpen}
+                    weaponData={weaponData}
+                  />
+                )}
               </div>
 
               <ButtonsList
