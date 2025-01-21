@@ -1,5 +1,5 @@
 import { WeaponType } from "../../types/Weapon.types";
-import { IoPause, IoPlay } from "react-icons/io5";
+// import { IoPause, IoPlay } from "react-icons/io5";
 
 import css from "./WeaponTable.module.css";
 
