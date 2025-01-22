@@ -33,6 +33,7 @@ export default function Chat({
 
   const handleLoadAudio = async (weapon: string) => {
     await setAudioSrc(weapon);
+    onAudio(true);
 
     if (audioRef.current) {
       audioRef.current

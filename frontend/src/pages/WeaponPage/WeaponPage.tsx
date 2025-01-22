@@ -22,6 +22,7 @@ export default function WeaponPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rotationEnabled, setRotationEnabled] = useState(false);
   const { id } = useParams<string>();
+  const [animation, setAnimation] = useState("idle");
 
   useEffect(() => {
     async function fetchWeapon() {
@@ -41,6 +42,16 @@ export default function WeaponPage() {
     fetchWeapon();
   }, []);
 
+  const handleAnimationChange = () => {
+    if (animation == "assemble" || animation == "idle") {
+      setAnimation("diassemble");
+    } else if (animation == "diassemble") {
+      setAnimation("assemble");
+    } else {
+      setAnimation("idle");
+    }
+  };
+
   if (!id) {
     return <Navigate to="/" />;
   }
@@ -56,6 +67,7 @@ export default function WeaponPage() {
             <WeaponScene
               media={weaponData.media}
               rotationEnabled={rotationEnabled}
+              animation={animation}
             />
             <WeaponLabel weapon={weaponData} />
             <div className={css.sidebarWrapper}>
@@ -78,6 +90,8 @@ export default function WeaponPage() {
                 setSidebarOpen={setSidebarOpen}
                 rotationEnabled={rotationEnabled}
                 setRotationEnabled={setRotationEnabled}
+                currentAnimation={animation}
+                changeAnimation={handleAnimationChange}
               />
             </div>
           </>

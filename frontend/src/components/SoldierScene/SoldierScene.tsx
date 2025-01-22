@@ -55,7 +55,7 @@ export default function SoldierScene({ chat, animation, children }: Props) {
       scene,
       (meshes, _, __, animationGroups) => {
         const soldier = meshes[0] as Mesh;
-        soldier.position = new Vector3(0, 0, 0);
+        soldier.position = new Vector3(0, -0.2, 0);
         animationGroupsRef.current = animationGroups;
 
         // Запуск початкової анімації
