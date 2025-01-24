@@ -17,9 +17,13 @@ export default function WeaponSidebar({ setSidebarOpen, weaponData }: Props) {
           <LuArrowLeftToLine className={css.closeIcon} />
         </button>
         <div className={css.content}>
-          <div className={css.table}>
+          <div className={css.section}>
             <h3 className={css.title}>Тактико-технічні характеристики</h3>
             <WeaponTable weaponData={weaponData} />
+          </div>
+          <div className={css.section}>
+            <h3 className={css.title}>Принцип роботи</h3>
+            <p className={css.text}>{weaponData.operation}</p>
           </div>
         </div>
       </div>

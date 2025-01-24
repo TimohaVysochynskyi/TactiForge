@@ -22,6 +22,9 @@
 }
 .content {
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .title {
   color: #fff;
@@ -29,4 +32,8 @@
   font-weight: 700;
   text-transform: uppercase;
   font-family: "Comfortaa", sans-serif;
+}
+.text {
+  color: #fff;
+  text-align: justify;
 }

@@ -16,4 +16,5 @@ export type WeaponType = {
     media: string;
     shortText: string;
     characteristics: Characteristic[];
+    operation: string;
 }
