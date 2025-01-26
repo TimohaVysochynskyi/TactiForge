@@ -49,7 +49,7 @@ export default function WeaponScene({
       "/assets/models/",
       `${media}.glb`,
       scene,
-      (meshes, particleSystems, skeletons, loadedAnimationGroups) => {
+      (meshes, _particleSystems, _skeletons, loadedAnimationGroups) => {
         model = meshes[0];
         model.scaling = new Vector3(1, 1, -1);
         model.position = new Vector3(0, 0, 5);
