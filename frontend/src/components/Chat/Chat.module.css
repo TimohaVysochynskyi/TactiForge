@@ -46,6 +46,11 @@
   gap: 0 25px;
   z-index: 1;
 }
+.audioGroup {
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
+}
 .audioBtn {
   width: 32px;
   height: 32px;
