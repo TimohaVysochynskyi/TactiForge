@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-
+import { useRef } from "react";
 import clsx from "clsx";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {
@@ -11,8 +10,8 @@ import {
 } from "react-icons/io5";
 
 import QuestionsList from "../QuestionsList/QuestionsList";
-
 import { WeaponPairType } from "../../types/Weapon.types";
+import { useAudio } from "../../hooks/useAudio";
 
 import css from "./Chat.module.css";
 
@@ -24,6 +23,7 @@ type Props = {
   onAudio: (value: boolean) => void;
   setAnimatedWeapon: (id: string) => void;
 };
+
 export default function Chat({
   chatOpen,
   changeChatStatus,
@@ -32,87 +32,76 @@ export default function Chat({
   onAudio,
   setAnimatedWeapon,
 }: Props) {
+  const { audioSrc, isPlaying, isMuted, playAudio, stopAudio, muteAudio } =
+    useAudio();
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [audioSrc, setAudioSrc] = useState<string | null>(null);
-  const [audioPlaying, setAudioPlaying] = useState<boolean>();
-  const [isVolume, setIsVolume] = useState<boolean>(true);
 
   const handleLoadAudio = async (weapon: string) => {
-    await setAudioSrc(weapon);
+    await playAudio(weapon);
     onAudio(true);
 
     if (audioRef.current) {
-      audioRef.current
-        .play()
-        .then(() => {
-          setAudioPlaying(true);
-        })
-        .catch((error) => {
-          console.error("Audio play failed:", error);
-        });
+      audioRef.current.load(); // Перезапускаємо завантаження
+      try {
+        await audioRef.current.play();
+      } catch (error) {
+        console.error("Автоматичне відтворення заблоковане:", error);
+      }
     }
   };
 
-  const toggleAudioPlay = () => {
+  const toggleAudioPlay = async () => {
     if (!audioRef.current) return;
 
-    if (audioPlaying) {
+    if (isPlaying) {
+      stopAudio();
       audioRef.current.pause();
       onAudio(false);
-    } else {
-      audioRef.current.play();
-      onAudio(true);
+    } else if (audioSrc) {
+      await playAudio(audioSrc);
+      try {
+        await audioRef.current.play();
+        onAudio(true);
+      } catch (error) {
+        console.error("Не вдалося відтворити аудіо:", error);
+      }
     }
-
-    setAudioPlaying(!audioPlaying);
-  };
-
-  const handleRestartAudio = () => {
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = 0;
-
-    if (!audioPlaying) {
-      audioRef.current.play();
-      setAudioPlaying(true);
-    }
-  };
-
-  const toggleVolume = () => {
-    if (!audioRef.current) return;
-
-    audioRef.current.muted = isVolume; // Перемикаємо стан звуку
-    setIsVolume(!isVolume); // Оновлюємо стан у компоненті
   };
 
   return (
     <>
-      {audioSrc !== null && (
-        <div className={css.audioWrapper}>
-          <button className={css.audioBtn} onClick={handleRestartAudio}>
-            <IoReload className={css.audioIcon} />
-          </button>
-          <div className={css.audioGroup}>
-            <button className={css.audioBtn} onClick={toggleVolume}>
-              {isVolume ? (
-                <IoVolumeMedium className={css.audioIcon} />
-              ) : (
-                <IoVolumeMute className={css.audioIcon} />
-              )}
-            </button>
-            <button className={css.audioBtn} onClick={toggleAudioPlay}>
-              {audioPlaying ? (
-                <IoPause className={css.audioIcon} />
-              ) : (
-                <IoPlay className={css.audioIcon} />
-              )}
-            </button>
-          </div>
+      {audioSrc && (
+        <>
           <audio
             ref={audioRef}
             src={`/assets/audio/${audioSrc}.mp3`}
-            onEnded={() => setAudioPlaying(false)}
+            onEnded={() => onAudio(false)}
           />
-        </div>
+          <div className={css.audioWrapper}>
+            <button
+              className={css.audioBtn}
+              onClick={() => playAudio(audioSrc)}
+            >
+              <IoReload className={css.audioIcon} />
+            </button>
+            <div className={css.audioGroup}>
+              <button className={css.audioBtn} onClick={muteAudio}>
+                {isMuted ? (
+                  <IoVolumeMute className={css.audioIcon} />
+                ) : (
+                  <IoVolumeMedium className={css.audioIcon} />
+                )}
+              </button>
+              <button className={css.audioBtn} onClick={toggleAudioPlay}>
+                {isPlaying ? (
+                  <IoPause className={css.audioIcon} />
+                ) : (
+                  <IoPlay className={css.audioIcon} />
+                )}
+              </button>
+            </div>
+          </div>
+        </>
       )}
       <div className={clsx(css.chat, chatOpen && css.chatOpened)}>
         <button type="button" className={css.button} onClick={changeChatStatus}>
@@ -128,14 +117,12 @@ export default function Chat({
           )}
         </button>
         {chatOpen && (
-          <>
-            <QuestionsList
-              pair={pair}
-              onNext={onNext}
-              playAudio={handleLoadAudio}
-              setAnimatedWeapon={setAnimatedWeapon}
-            />
-          </>
+          <QuestionsList
+            pair={pair}
+            onNext={onNext}
+            onPlayAudio={handleLoadAudio}
+            setAnimatedWeapon={setAnimatedWeapon}
+          />
         )}
       </div>
     </>

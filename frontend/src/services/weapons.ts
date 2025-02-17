@@ -4,6 +4,8 @@ import { WeaponType } from "../types/Weapon.types.ts";
 
 const URL = `${apiDomain}/weapons`;
 
+
+
 export const fetchAllWeaponPairs = async () => {
   const response = await axios.get(`${URL}/`);
 
