@@ -5,6 +5,7 @@ import Loader from "../Loader/Loader";
 
 //import css from "./App.module.css";
 
+const LandingPage = lazy(() => import("../../pages/LandingPage/LandingPage"));
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const AboutPage = lazy(() => import("../../pages/AboutPage/AboutPage"));
 const HelpPage = lazy(() => import("../../pages/HelpPage/HelpPage"));
@@ -16,7 +17,8 @@ export default function App() {
     <>
       <Suspense fallback={<Loader position="fixed" size="80" />}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/weapons/:id" element={<WeaponPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/help" element={<HelpPage />} />

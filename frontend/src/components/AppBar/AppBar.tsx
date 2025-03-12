@@ -14,7 +14,6 @@ export default function AppBar() {
               <h1 className={css.title}>DigitalArmsLab</h1>
             </div>
           </Link>
-          <h2 className={css.subtitle}>Лабораторія безпечного майбутнього</h2>
         </div>
         <div className={css.navigation}>
           <Navigation />

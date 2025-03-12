@@ -11,12 +11,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat Alternates", sans-serif;
+  font-family: "Montserrat";
   font-style: normal;
+  position: relative;
+  z-index: 0;
 }
 
 body {
-  background-color: black;
+  background-color: #0f0f0f;
   min-height: 100vh;
   overflow-x: hidden;
 }

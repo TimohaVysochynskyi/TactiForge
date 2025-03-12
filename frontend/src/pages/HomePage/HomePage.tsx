@@ -1,6 +1,5 @@
 import { lazy, useEffect, useState } from "react";
 import clsx from "clsx";
-import HomeMenu from "../../components/HomeMenu/HomeMenu";
 import HomeStarted from "../../components/HomeStarted/HomeStarted";
 
 import css from "./HomePage.module.css";
@@ -8,6 +7,7 @@ import Chat from "../../components/Chat/Chat";
 import { fetchAllWeaponPairs } from "../../services/weapons";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import BackgroundNoise from "../../components/BackgroundNoise/BackgroundNoise";
 // import Fog from "../../components/Fog/Fog";
 
 const SoldierScene = lazy(
@@ -16,10 +16,6 @@ const SoldierScene = lazy(
 
 export default function HomePage() {
   // Зчитування станів з localStorage
-  const [started, setStarted] = useState(() => {
-    const saved = localStorage.getItem("started");
-    return saved ? JSON.parse(saved) : false;
-  });
 
   const [pairNumber, setPairNumber] = useState(() => {
     const saved = localStorage.getItem("pairNumber");
@@ -33,11 +29,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [weaponsData, setWeaponsData] = useState([]);
-
-  // Ефект для збереження стану started у localStorage
-  useEffect(() => {
-    localStorage.setItem("started", JSON.stringify(started));
-  }, [started]);
 
   // Ефект для збереження стану pairNumber у localStorage
   useEffect(() => {
@@ -59,11 +50,6 @@ export default function HomePage() {
     }
     fetchAllWeapons();
   }, []);
-
-  // Обробники для зміни станів
-  const handleStart = () => {
-    setStarted(true);
-  };
 
   const handleNext = () => {
     if (pairNumber < weaponsData.length - 1) {
@@ -91,11 +77,10 @@ export default function HomePage() {
   return (
     <>
       {/* <Fog /> */}
-      <main className={clsx(css.container, started && css.startedContainer)}>
-        <div className={clsx(css.col, started && css.startedCol)}>
-          {!started ? (
-            <HomeMenu setStarted={handleStart} />
-          ) : weaponsData.length > 0 ? (
+      <BackgroundNoise />
+      <main className={clsx(css.container, css.startedContainer)}>
+        <div className={clsx(css.col, css.startedCol)}>
+          {weaponsData.length > 0 && (
             <HomeStarted
               weaponsData={weaponsData}
               pair={pairNumber}
@@ -103,13 +88,11 @@ export default function HomePage() {
               onPrev={handlePrev}
               animatedWeapon={animatedWeapon}
             />
-          ) : (
-            <div>Дані відсутні!</div>
           )}
         </div>
 
-        <div className={clsx(css.col, started && css.startedCol)}>
-          <SoldierScene chat={started} animation={animation}>
+        <div className={clsx(css.col, css.startedCol)}>
+          <SoldierScene animation={animation}>
             <Chat
               chatOpen={chatOpen}
               changeChatStatus={() => setChatOpen((prev) => !prev)}

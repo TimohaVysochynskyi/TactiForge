@@ -20,12 +20,11 @@ import Loader from "../Loader/Loader";
 import css from "./SoldierScene.module.css";
 
 type Props = {
-  chat: boolean;
   animation: string;
   children: React.ReactNode;
 };
 
-export default function SoldierScene({ chat, animation, children }: Props) {
+export default function SoldierScene({ animation, children }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const cameraRef = useRef<ArcRotateCamera | null>(null); // Реф для камери
   const animationGroupsRef = useRef<AnimationGroup[]>([]);
@@ -149,17 +148,17 @@ export default function SoldierScene({ chat, animation, children }: Props) {
         Animation.ANIMATIONLOOPMODE_CONSTANT
       );
     }
-  }, [chat]);
+  }, []);
 
   return (
     <>
-      <div className={clsx(css.scene, chat && css.sceneBordered)}>
+      <div className={clsx(css.scene, css.sceneBordered)}>
         <canvas
           ref={canvasRef}
-          className={clsx(css.canvas, chat && css.canvasZoomed)}
+          className={clsx(css.canvas, css.canvasZoomed)}
         />
         {loading && <Loader position="absolute" size="80" />}
-        {chat && children && <>{children}</>}
+        {<>{children}</>}
       </div>
     </>
   );

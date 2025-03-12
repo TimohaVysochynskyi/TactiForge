@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import {
   Engine,
   Scene,
-  FreeCamera,
+  ArcRotateCamera,
   HemisphericLight,
   DirectionalLight,
   PointLight,
@@ -19,7 +19,7 @@ import Loader from "../Loader/Loader";
 type Props = {
   media: string;
   rotationEnabled: boolean;
-  animation: string; // Назва анімації, яка передається з батьківського компонента
+  animation: string;
 };
 
 export default function WeaponScene({
@@ -52,25 +52,27 @@ export default function WeaponScene({
       (meshes, _particleSystems, _skeletons, loadedAnimationGroups) => {
         model = meshes[0];
         model.scaling = new Vector3(1, 1, -1);
-        model.position = new Vector3(0, 0, 5);
+        model.position = new Vector3(-1, 0, 0);
         model.rotation = new Vector3(0, 1.5, 0);
 
-        setAnimationGroups(loadedAnimationGroups); // Зберігаємо тільки анімаційні групи
+        setAnimationGroups(loadedAnimationGroups);
         setLoading(false);
       }
     );
 
-    // Камера
-    const camera = new FreeCamera("camera", new Vector3(0, 0, -5), scene);
-    camera.setTarget(Vector3.Zero());
+    // Камера з можливістю обертання навколо моделі
+    const camera = new ArcRotateCamera(
+      "camera",
+      Math.PI / 2,
+      Math.PI / 2.5,
+      12,
+      Vector3.Zero(),
+      scene
+    );
     camera.attachControl(canvasRef.current, true);
-    camera.speed = 0.4;
-    camera.angularSensibility = 4000;
-
-    camera.keysUp.push(87); // W
-    camera.keysDown.push(83); // S
-    camera.keysLeft.push(65); // A
-    camera.keysRight.push(68); // D
+    camera.wheelPrecision = 50; // Налаштування чутливості зуму
+    camera.lowerRadiusLimit = 2; // Мінімальне приближення
+    camera.upperRadiusLimit = 20; // Максимальне віддалення
 
     // Освітлення
     const ambientLight = new HemisphericLight(
@@ -99,9 +101,6 @@ export default function WeaponScene({
 
     // Рендеринг сцени
     engine.runRenderLoop(() => {
-      if (model && rotationEnabled) {
-        model.rotation.y += 0.0025;
-      }
       scene.render();
     });
 
@@ -112,33 +111,29 @@ export default function WeaponScene({
     return () => {
       engine.dispose();
     };
-  }, [rotationEnabled, media]);
+  }, [media]);
 
-  // Зміна анімації при зміні пропсу animation
   useEffect(() => {
     if (!animationGroups || animationGroups.length === 0) return;
 
-    // Зупиняємо попередню анімацію
     if (currentAnimation) {
-      currentAnimation.stop(); // Зупиняємо анімацію
+      currentAnimation.stop();
     }
 
-    // Знаходимо потрібну анімацію за назвою
     const newAnimation = animationGroups.find(
       (group) => group.name === animation
     );
     if (newAnimation) {
-      newAnimation.reset(); // Скидаємо анімацію до початкового стану
-      newAnimation.loopAnimation = false; // Вимикаємо зациклення
-      newAnimation.play(false); // Програємо лише один раз
+      newAnimation.reset();
+      newAnimation.loopAnimation = false;
+      newAnimation.play(false);
 
-      // Слухаємо завершення анімації
       newAnimation.onAnimationEndObservable.addOnce(() => {
-        const lastFrame = newAnimation.to; // Останній кадр анімації
-        newAnimation.goToFrame(lastFrame); // Залишаємо модель на останньому кадрі
+        const lastFrame = newAnimation.to;
+        newAnimation.goToFrame(lastFrame);
       });
 
-      setCurrentAnimation(newAnimation); // Зберігаємо нову активну анімацію
+      setCurrentAnimation(newAnimation);
     }
   }, [animation, animationGroups]);
 

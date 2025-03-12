@@ -12,7 +12,7 @@
   width: 100%;
   min-height: calc(100% - 70px);
   border: 2px solid rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,12 +39,13 @@
 }
 .name {
   font-size: 36px;
-  font-family: Comfortaa;
+  font-family: "Comfortaa";
   color: var(--main-color);
 }
 .description {
   font-weight: 500;
-  width: 100px;
+  width: 120px;
+  text-align: right;
   color: var(--secondary-color);
 }
 
