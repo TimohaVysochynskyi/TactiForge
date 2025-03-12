@@ -22,11 +22,7 @@ type Props = {
   animation: string;
 };
 
-export default function WeaponScene({
-  media,
-  rotationEnabled,
-  animation,
-}: Props) {
+export default function WeaponScene({ media, animation }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [loading, setLoading] = useState(true);
   const [animationGroups, setAnimationGroups] = useState<
@@ -42,6 +38,7 @@ export default function WeaponScene({
     const scene = new Scene(engine);
     scene.clearColor = new Color4(0, 0, 0, 0);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let model: any = null;
 
     SceneLoader.ImportMesh(

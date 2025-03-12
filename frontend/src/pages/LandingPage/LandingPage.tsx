@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import AppBar from "../../components/AppBar/AppBar";
 import BackgroundNoise from "../../components/BackgroundNoise/BackgroundNoise";
 import Features from "../../components/Features/Features";
