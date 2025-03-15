@@ -12,8 +12,8 @@ export default function Navigation() {
           </NavLink>
         </li>
         <li className={css.item}>
-          <NavLink className={css.link} to="/about">
-            Про проєкт
+          <NavLink className={css.link} to="/laboratory">
+            Лабораторія
           </NavLink>
         </li>
         <li className={css.item}>

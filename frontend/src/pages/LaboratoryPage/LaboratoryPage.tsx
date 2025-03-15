@@ -2,19 +2,19 @@ import { lazy, useEffect, useState } from "react";
 import clsx from "clsx";
 import HomeStarted from "../../components/HomeStarted/HomeStarted";
 
-import css from "./HomePage.module.css";
+import css from "./LaboratoryPage.module.css";
 import Chat from "../../components/Chat/Chat";
 import { fetchAllWeaponPairs } from "../../services/weapons";
 import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import BackgroundNoise from "../../components/BackgroundNoise/BackgroundNoise";
+import AppBar from "../../components/AppBar/AppBar";
 // import Fog from "../../components/Fog/Fog";
 
 const SoldierScene = lazy(
   () => import("../../components/SoldierScene/SoldierScene")
 );
 
-export default function HomePage() {
+export default function LaboratoryPage() {
   // Зчитування станів з localStorage
 
   const [pairNumber, setPairNumber] = useState(() => {
@@ -71,13 +71,13 @@ export default function HomePage() {
     }
   };
 
-  if (loading) return <Loader size="80" position="absolute" />;
+  if (loading) return <Loader size="80" position="fixed" />;
   if (error) return <ErrorMessage />;
 
   return (
     <>
       {/* <Fog /> */}
-      <BackgroundNoise />
+      <AppBar />
       <main className={clsx(css.container, css.startedContainer)}>
         <div className={clsx(css.col, css.startedCol)}>
           {weaponsData.length > 0 && (

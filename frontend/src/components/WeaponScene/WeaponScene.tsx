@@ -10,11 +10,13 @@ import {
   Color4,
   SceneLoader,
   AnimationGroup,
+  Mesh,
+  Nullable,
+  Observer,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 
 import css from "./WeaponScene.module.css";
-import Loader from "../Loader/Loader";
 
 type Props = {
   media: string;
@@ -22,14 +24,18 @@ type Props = {
   animation: string;
 };
 
-export default function WeaponScene({ media, animation }: Props) {
+export default function WeaponScene({
+  media,
+  rotationEnabled,
+  animation,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
   const [animationGroups, setAnimationGroups] = useState<
     AnimationGroup[] | null
   >(null);
   const [currentAnimation, setCurrentAnimation] =
     useState<AnimationGroup | null>(null);
+  const [, setModel] = useState<Mesh | null>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -38,40 +44,35 @@ export default function WeaponScene({ media, animation }: Props) {
     const scene = new Scene(engine);
     scene.clearColor = new Color4(0, 0, 0, 0);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let model: any = null;
-
     SceneLoader.ImportMesh(
       "",
       "/assets/models/",
       `${media}.glb`,
       scene,
       (meshes, _particleSystems, _skeletons, loadedAnimationGroups) => {
-        model = meshes[0];
-        model.scaling = new Vector3(1, 1, -1);
-        model.position = new Vector3(-1, 0, 0);
-        model.rotation = new Vector3(0, 1.5, 0);
+        const loadedModel = meshes[0] as Mesh;
+        loadedModel.scaling = new Vector3(1, 1, -1);
+        loadedModel.position = new Vector3(0, 0, -1);
+        loadedModel.rotation = new Vector3(0, 0, 0);
+        setModel(loadedModel);
 
         setAnimationGroups(loadedAnimationGroups);
-        setLoading(false);
       }
     );
 
-    // Камера з можливістю обертання навколо моделі
     const camera = new ArcRotateCamera(
       "camera",
-      Math.PI / 2,
-      Math.PI / 2.5,
+      0,
+      Math.PI / 2.25,
       12,
       Vector3.Zero(),
       scene
     );
     camera.attachControl(canvasRef.current, true);
-    camera.wheelPrecision = 50; // Налаштування чутливості зуму
-    camera.lowerRadiusLimit = 2; // Мінімальне приближення
-    camera.upperRadiusLimit = 20; // Максимальне віддалення
+    camera.wheelPrecision = 50;
+    camera.lowerRadiusLimit = 2;
+    camera.upperRadiusLimit = 20;
 
-    // Освітлення
     const ambientLight = new HemisphericLight(
       "ambientLight",
       new Vector3(0, 1, 0),
@@ -96,7 +97,15 @@ export default function WeaponScene({ media, animation }: Props) {
     const blueLight = new PointLight("blueLight", new Vector3(0, 2, -5), scene);
     blueLight.intensity = 5;
 
-    // Рендеринг сцени
+    // Додаємо зміну кута камери
+    let rotationObserver: Nullable<Observer<Scene>> = null;
+
+    if (rotationEnabled) {
+      rotationObserver = scene.onBeforeRenderObservable.add(() => {
+        camera.alpha += 0.003; // Повільне обертання камери
+      });
+    }
+
     engine.runRenderLoop(() => {
       scene.render();
     });
@@ -106,9 +115,12 @@ export default function WeaponScene({ media, animation }: Props) {
     });
 
     return () => {
+      if (rotationObserver) {
+        scene.onBeforeRenderObservable.remove(rotationObserver);
+      }
       engine.dispose();
     };
-  }, [media]);
+  }, [media, rotationEnabled]);
 
   useEffect(() => {
     if (!animationGroups || animationGroups.length === 0) return;
@@ -132,11 +144,10 @@ export default function WeaponScene({ media, animation }: Props) {
 
       setCurrentAnimation(newAnimation);
     }
-  }, [animation, animationGroups]);
+  }, [animation, animationGroups, currentAnimation]);
 
   return (
     <>
-      {loading && <Loader position="fixed" size="80" />}
       <canvas ref={canvasRef} className={css.canvas} />
     </>
   );

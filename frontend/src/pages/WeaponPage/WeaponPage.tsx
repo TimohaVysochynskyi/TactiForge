@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
-import AppBar from "../../components/AppBar/AppBar";
+import { Link, Navigate, useParams } from "react-router-dom";
 import WeaponScene from "../../components/WeaponScene/WeaponScene";
 import WeaponLabel from "../../components/WeaponLabel/WeaponLabel";
 import WeaponSideBar from "../../components/WeaponSideBar/WeaponSidebar";
@@ -14,6 +13,7 @@ import { WeaponType } from "../../types/Weapon.types";
 import css from "./WeaponPage.module.css";
 import ButtonsList from "../../components/ButtonsList/ButtonsList";
 import clsx from "clsx";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function WeaponPage() {
   const [loading, setLoading] = useState(false);
@@ -56,11 +56,15 @@ export default function WeaponPage() {
     return <Navigate to="/" />;
   }
 
+  if (loading) return <Loader position="fixed" size="80" />;
+
   return (
     <>
       <div className={css.container}>
-        <AppBar />
-        {loading && <Loader position="absolute" size="80" />}
+        <Link to="/laboratory" className={css.btn}>
+          <FaArrowLeftLong className={css.icon} />
+          Повернутися назад
+        </Link>
         {error && <ErrorMessage />}
         {weaponData && (
           <>

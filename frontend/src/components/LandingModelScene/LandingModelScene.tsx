@@ -100,7 +100,7 @@ export default function LandingModelScene({ media }: Props) {
     window.addEventListener("scroll", handleScroll);
 
     const handleWheel = (event: WheelEvent) => {
-      rotationVelocity.current += event.deltaY * 0.00008;
+      rotationVelocity.current += event.deltaY * 0.00012;
     };
 
     window.addEventListener("wheel", handleWheel);
@@ -141,5 +141,9 @@ export default function LandingModelScene({ media }: Props) {
     };
   }, [media]);
 
-  return <canvas ref={canvasRef} className={css.canvas} />;
+  return (
+    <>
+      <canvas ref={canvasRef} className={css.canvas} />
+    </>
+  );
 }

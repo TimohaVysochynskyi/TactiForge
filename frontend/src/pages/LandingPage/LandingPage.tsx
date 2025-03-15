@@ -1,5 +1,4 @@
 import AppBar from "../../components/AppBar/AppBar";
-import BackgroundNoise from "../../components/BackgroundNoise/BackgroundNoise";
 import Features from "../../components/Features/Features";
 import Hero from "../../components/Hero/Hero";
 import LandingModelScene from "../../components/LandingModelScene/LandingModelScene";
@@ -10,7 +9,6 @@ import css from "./LandingPage.module.css";
 export default function LandingPage() {
   return (
     <>
-      <BackgroundNoise />
       <main className={css.container}>
         <div className={css.model}>
           <LandingModelScene media={"mavic2"} />

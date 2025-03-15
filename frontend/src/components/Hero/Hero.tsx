@@ -14,7 +14,7 @@ export default function Hero() {
           розбирання та збирання. Голосовий провідник – український військовий –
           допоможе краще зрозуміти особливості кожної одиниці зброї.
         </p>
-        <Link to="/home" className={css.button}>
+        <Link to="/laboratory" className={css.button}>
           Розпочати
         </Link>
       </div>

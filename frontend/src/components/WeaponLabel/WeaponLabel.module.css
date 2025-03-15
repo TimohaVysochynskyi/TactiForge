@@ -10,7 +10,7 @@
   font-size: 72px;
   font-family: "Comfortaa";
   font-weight: 700;
-  color: var(--main-color);
+  color: #fff;
 }
 .description {
   display: flex;

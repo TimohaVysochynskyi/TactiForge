@@ -1,6 +1,7 @@
 import { BsQuestionLg } from "react-icons/bs";
-import { FiRotateCw } from "react-icons/fi";
-import { HiArrowsPointingOut, HiArrowsPointingIn } from "react-icons/hi2";
+import { LuComponent } from "react-icons/lu";
+import { TbView360Arrow } from "react-icons/tb";
+import { CgClose } from "react-icons/cg";
 
 import css from "./ButtonsList.module.css";
 
@@ -29,18 +30,26 @@ export default function ButtonsList({
           className={css.btn}
           onClick={() => setRotationEnabled(!rotationEnabled)}
         >
-          <FiRotateCw className={css.icon} />
+          <p className={css.text}>Обертання</p>
+          {rotationEnabled ? (
+            <>
+              <CgClose className={css.icon} />
+            </>
+          ) : (
+            <TbView360Arrow className={css.icon} />
+          )}
         </button>
         {/* <button type="button" className={css.btn}>
           <GiPlayButton className={css.icon} />
         </button> */}
         <button type="button" className={css.btn} onClick={changeAnimation}>
+          <p className={css.text}>Розбірка</p>
           {currentAnimation == "idle" || currentAnimation == "assemble" ? (
             <>
-              <HiArrowsPointingOut className={css.icon} />
+              <LuComponent className={css.icon} />
             </>
           ) : (
-            <HiArrowsPointingIn className={css.icon} />
+            <CgClose className={css.icon} />
           )}
         </button>
         <button
@@ -48,6 +57,7 @@ export default function ButtonsList({
           className={css.btn}
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
+          <p className={css.text}>Теорія</p>
           <BsQuestionLg className={css.icon} />
         </button>
       </div>
