@@ -23,30 +23,19 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .link {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .link {
-    font-size: 13px;
-  }
-}
-
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 560px) {
   .list {
-    gap: 0 15px;
+    gap: 0 20px;
+    justify-content: center;
   }
   .link {
     font-size: 16px;
   }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 430px) {
   .link {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 @media screen and (max-width: 365px) {

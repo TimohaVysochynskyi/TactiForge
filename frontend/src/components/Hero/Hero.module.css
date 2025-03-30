@@ -44,3 +44,108 @@
   background-color: #fff;
   color: #000;
 }
+
+@media screen and (max-width: 1440px) {
+  .container {
+    gap: 20px;
+  }
+  .title {
+    font-size: 50px;
+  }
+  .subtitle {
+    font-size: 20px;
+  }
+  .button {
+    font-size: 32px;
+    padding: 10px 54px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .container {
+    gap: 15px;
+  }
+  .title {
+    font-size: 45px;
+  }
+  .subtitle {
+    font-size: 18px;
+  }
+  .button {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .title {
+    font-size: 40px;
+  }
+  .subtitle {
+    font-size: 17px;
+  }
+  .button {
+    font-size: 28px;
+    padding: 8px 40px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 100%;
+    gap: 20px;
+  }
+  .title {
+    font-size: 50px;
+  }
+  .subtitle {
+    width: 100%;
+    font-size: 22px;
+  }
+  .button {
+    font-size: 32px;
+    padding: 10px 45px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 45px;
+  }
+  .subtitle {
+    font-size: 20px;
+  }
+  .button {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .title {
+    font-size: 42px;
+  }
+  .subtitle {
+    font-size: 19px;
+  }
+  .button {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title {
+    font-size: 40px;
+  }
+  .subtitle {
+    font-size: 18px;
+  }
+  .button {
+    font-size: 26px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .title {
+    font-size: 36px;
+  }
+}
+@media screen and (max-width: 335px) {
+  .title {
+    font-size: 34px;
+  }
+}

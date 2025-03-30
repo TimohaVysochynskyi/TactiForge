@@ -20,8 +20,8 @@ export default function Numbers() {
           transition={{ duration: 0.6 }}
           className={css.item}
         >
-          <p className={css.number}>24</p>
-          <p className={css.text}>блоки з теорією</p>
+          <p className={css.number}>16</p>
+          <p className={css.text}>блоків з теорією</p>
         </motion.div>
       </div>
     </>

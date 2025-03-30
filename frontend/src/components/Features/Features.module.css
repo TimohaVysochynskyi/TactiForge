@@ -1,7 +1,7 @@
 .container {
   display: flex;
   justify-content: end;
-  height: 80vh;
+  min-height: 80vh;
   padding: 0 5vw;
   margin: 120px 0;
 }
@@ -41,4 +41,102 @@
   font-size: 18px;
   color: #fff;
   text-align: justify;
+}
+
+@media screen and (max-width: 1440px) {
+  .number {
+    font-size: 90px;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .text {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .list {
+    width: 55%;
+  }
+  .item {
+    gap: 15px;
+  }
+  .col {
+    gap: 5px 0;
+    padding-top: 15px;
+  }
+  .number {
+    font-size: 80px;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .text {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .col {
+    padding-top: 10px;
+  }
+  .number {
+    font-size: 60px;
+  }
+  .title {
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .list {
+    width: 100%;
+  }
+  .item {
+    gap: 20px;
+  }
+  .col {
+    padding-top: 20px;
+    gap: 10px 0;
+  }
+  .number {
+    font-size: 85px;
+  }
+  .title {
+    font-size: 28px;
+  }
+  .text {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin: 80px 0;
+  }
+  .col {
+    padding-top: 15px;
+  }
+  .number {
+    font-size: 70px;
+  }
+  .title {
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .number {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title {
+    font-size: 24px;
+  }
+  .text {
+    font-size: 17px;
+  }
 }

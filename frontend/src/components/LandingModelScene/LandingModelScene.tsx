@@ -21,11 +21,16 @@ type Props = {
 };
 
 export default function LandingModelScene({ media }: Props) {
+  const viewPortWidthPercent = window.innerWidth / 100;
+  const scrollKoef = viewPortWidthPercent * 0.045;
+
   const [loading, setLoading] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const modelRef = useRef<AbstractMesh | null>(null);
   const cameraRef = useRef<FreeCamera | null>(null);
-  const targetPosition = useRef<Vector3>(new Vector3(6, 0, 5));
+  const targetPosition = useRef<Vector3>(
+    new Vector3(viewPortWidthPercent * 0.3, 0, 5)
+  );
   const smoothRotation = useRef(0);
   const rotationVelocity = useRef(0);
   const timeRef = useRef(0);
@@ -85,15 +90,20 @@ export default function LandingModelScene({ media }: Props) {
         scrollY / (document.documentElement.scrollHeight - viewportHeight);
 
       if (modelRef.current) {
-        if (scrollY < viewportHeight / 1.5) {
-          targetPosition.current = new Vector3(6 - scrollPercentage * 20, 0, 5);
-          smoothZ.current = 5;
-        } else if (scrollY < viewportHeight) {
-          targetPosition.current = new Vector3(6 - scrollPercentage * 17, 0, 5);
+        if (scrollY < viewportHeight) {
+          targetPosition.current = new Vector3(
+            viewPortWidthPercent * 0.3 - scrollPercentage * scrollKoef * 20,
+            0,
+            5
+          );
           smoothZ.current = 5;
         } else if (scrollY < viewportHeight * 1.7) {
-          targetPosition.current = new Vector3(-8.5, 0, 5);
-          smoothZ.current = 8;
+          targetPosition.current = new Vector3(
+            viewPortWidthPercent * -0.52,
+            0,
+            5
+          );
+          smoothZ.current = 10;
         } else {
           targetPosition.current = new Vector3(0, -1, 5);
           smoothZ.current = 5;
