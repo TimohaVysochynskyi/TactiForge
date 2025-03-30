@@ -77,8 +77,8 @@ export default function WeaponPage() {
             <div className={css.sidebarWrapper}>
               <div
                 className={clsx(
-                  css.sidebar,
-                  sidebarOpen ? css.sidebarOpen : css.sidebarClose
+                  sidebarOpen ? css.sidebarOpen : css.sidebarClose,
+                  css.sidebar
                 )}
               >
                 {weaponData.characteristics && (

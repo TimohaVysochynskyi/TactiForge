@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   Engine,
   Scene,
@@ -14,12 +14,14 @@ import {
 import "@babylonjs/loaders/glTF";
 
 import css from "./LandingModelScene.module.css";
+import Loader from "../Loader/Loader";
 
 type Props = {
   media: string;
 };
 
 export default function LandingModelScene({ media }: Props) {
+  const [loading, setLoading] = useState(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const modelRef = useRef<AbstractMesh | null>(null);
   const cameraRef = useRef<FreeCamera | null>(null);
@@ -47,8 +49,10 @@ export default function LandingModelScene({ media }: Props) {
         modelRef.current = meshes[0];
         modelRef.current.scaling = new Vector3(1, 1, -1);
         modelRef.current.position = targetPosition.current;
-        modelRef.current.rotation = new Vector3(0, 1.8, 0);
+        modelRef.current.rotation = new Vector3(0, Math.PI / 1.5, 0);
         scene.freezeActiveMeshes();
+
+        setLoading(false);
       }
     );
 
@@ -143,6 +147,7 @@ export default function LandingModelScene({ media }: Props) {
 
   return (
     <>
+      {loading && <Loader position="fixed" size="80" />}
       <canvas ref={canvasRef} className={css.canvas} />
     </>
   );

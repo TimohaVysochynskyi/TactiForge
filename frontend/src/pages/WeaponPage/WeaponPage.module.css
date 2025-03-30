@@ -15,10 +15,13 @@
 .sidebar {
   position: relative;
   z-index: 1;
+  opacity: 0;
+  transition: 0.3s;
 }
 .sidebarOpen {
   animation: sidebarOpen 0.5s;
   animation-iteration-count: 1;
+  opacity: 1;
 }
 .sidebarClose {
   animation: sidebarClose 0.5s;
