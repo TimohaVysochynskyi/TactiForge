@@ -3,7 +3,7 @@ import WeaponPair from "../WeaponPair/WeaponPair";
 
 import { WeaponPairType } from "../../types/Weapon.types";
 
-import css from "./HomeStarted.module.css";
+import css from "./HomeWrapper.module.css";
 import { useState } from "react";
 import clsx from "clsx";
 

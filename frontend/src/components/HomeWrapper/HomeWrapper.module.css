@@ -1,5 +1,6 @@
 .container {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +47,31 @@
   animation-iteration-count: 1;
 }
 
+@media screen and (max-width: 1440px) {
+  .btnWrapper {
+    margin-top: 40px;
+  }
+  .button {
+    padding: 12px 40px;
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .btnWrapper {
+    margin-top: 30px;
+  }
+  .button {
+    padding: 10px 30px;
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .button {
+    padding: 10px 25px;
+    font-size: 20px;
+  }
+}
+
 @keyframes makeVisible {
   from {
     opacity: 0;
@@ -61,15 +87,5 @@
   }
   to {
     opacity: 0;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .btnWrapper {
-    margin-top: 20px;
-  }
-  .button {
-    font-size: 20px;
-    padding: 10px 35px;
   }
 }

@@ -1,6 +1,5 @@
 import { lazy, useEffect, useState } from "react";
-import clsx from "clsx";
-import HomeStarted from "../../components/HomeStarted/HomeStarted";
+import HomeWrapper from "../../components/HomeWrapper/HomeWrapper";
 
 import css from "./LaboratoryPage.module.css";
 import Chat from "../../components/Chat/Chat";
@@ -78,10 +77,10 @@ export default function LaboratoryPage() {
     <>
       {/* <Fog /> */}
       <AppBar />
-      <main className={clsx(css.container, css.startedContainer)}>
-        <div className={clsx(css.col, css.startedCol)}>
+      <main className={css.container}>
+        <div className={css.col}>
           {weaponsData.length > 0 && (
-            <HomeStarted
+            <HomeWrapper
               weaponsData={weaponsData}
               pair={pairNumber}
               onNext={handleNext}
@@ -91,7 +90,7 @@ export default function LaboratoryPage() {
           )}
         </div>
 
-        <div className={clsx(css.col, css.startedCol)}>
+        <div className={css.col}>
           <SoldierScene animation={animation}>
             <Chat
               chatOpen={chatOpen}

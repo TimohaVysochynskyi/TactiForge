@@ -33,7 +33,7 @@ export default function WeaponCard({
         <div className={css.row}>
           <p className={css.name}>{name}</p>
           <p className={css.description}>
-            {country} {year}
+            {country} <br /> {year}
           </p>
         </div>
       </Link>

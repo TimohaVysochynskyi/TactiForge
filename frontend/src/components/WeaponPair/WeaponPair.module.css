@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+  width: 100%;
 }
 .title {
   font-size: 44px;
@@ -15,12 +16,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0 40px;
+}
+.cardWrapper {
+  width: calc(50% - 20px);
+  height: 380px;
 }
 
+@media screen and (max-width: 1440px) {
+  .title {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  .cardWrapper {
+    height: 330px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .title {
+    font-size: 38px;
+    margin-bottom: 15px;
+  }
+  .cardWrapper {
+    height: 290px;
+  }
+}
 @media screen and (max-width: 1024px) {
   .title {
     font-size: 36px;
     margin-bottom: 20px;
+  }
+  .cardWrapper {
+    height: 220px;
+    width: calc(50% - 10px);
   }
 }

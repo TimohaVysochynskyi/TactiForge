@@ -6,196 +6,49 @@ body {
   height: calc(100vh - 110px);
   position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   align-items: center;
-  /* animation: suka 1.2s;
-  animation-delay: 4s; */
+  padding: 5vh 5vw;
 }
 .col {
-  height: 90%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 .col:first-child {
-  width: 30%;
-  min-width: 400px;
-  order: 1;
+  width: 65%;
 }
 .col:last-child {
-  width: 30%;
-  min-width: 360px;
-  max-height: 800px;
-  position: relative;
-  left: 80px;
-  order: 2;
+  width: calc(35% - 50px);
 }
 .chat {
   width: 100%;
   height: 100%;
 }
-.startedCol:first-child {
-  order: 2;
-  animation: changeRightColPosition 1.5s;
-  width: 65%;
-  position: relative;
-  right: 0;
-  overflow-y: hidden;
-}
-.startedCol:last-child {
-  order: 1;
-  animation: changeLeftColPosition 1.5s;
-  left: 50px;
-}
-
-@media screen and (max-width: 1300px) {
-  .col {
-    height: 75%;
-  }
-  .startedCol:first-child {
-    height: 85%;
-  }
-  .startedCol:last-child {
-    left: 0;
-  }
-}
 
 @media screen and (max-width: 1024px) {
-  .col {
-    height: 60%;
-  }
   .col:last-child {
-    min-width: 300px;
+    width: calc(35% - 30px);
   }
 }
-@media screen and (max-width: 968px) {
-  .col:first-child {
-    min-width: 330px;
-  }
-  .col:last-child {
-    left: 50px;
-  }
-}
-
-@media screen and (max-width: 820px) {
-  .container {
-    justify-content: space-between;
-    padding: 0 50px;
-  }
-  .col:first-child {
-    min-width: 350px;
-  }
-  .col:last-child {
-    height: 440px;
-    min-width: 300px;
-    left: 10px;
-  }
-}
-
 @media screen and (max-width: 768px) {
-  .container {
-    gap: 0 20px;
-    padding: 0 40px;
+  body {
+    height: auto;
   }
-  .col:first-child {
-    min-width: 320px;
+  .container {
+    flex-direction: column-reverse;
+    padding: 0 20px;
+    height: auto;
+    gap: 10px;
+  }
+  .col:first-child,
+  .col:last-child {
+    width: 100%;
   }
   .col:last-child {
-    left: 0;
-    height: 370px;
-    min-width: 250px;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .container {
-    padding: 0 30px;
-  }
-  .col:first-child {
-    min-width: 280px;
-  }
-  .col:last-child {
-    min-width: 200px;
-    height: 50%;
-  }
-}
-@media screen and (max-width: 540px) {
-  .col:first-child {
-    min-width: 100%;
-  }
-  .col:last-child {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 420px) {
-  /* Some sh1t goes here */
-}
-
-@media screen and (max-width: 365px) {
-  .container {
-    padding: 0 10px;
-  }
-}
-
-@keyframes suka {
-  0% {
-    transform: scale(1);
-  }
-  10% {
-    transform: scale(0.4) rotateX(-30deg) translateY(-150px);
-    filter: blur(0px);
-  }
-  20% {
-    filter: blur(30px);
-    transform: scale(0.4) rotateX(-30deg) translateY(-150px);
-  }
-  90% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes changeLeftColPosition {
-  0% {
-    opacity: 0;
-    order: 2;
-  }
-  25% {
-    opacity: 0;
-    order: 2;
-  }
-  50% {
-    opacity: 0;
-    transform: translateX(100%);
-    order: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    order: 1;
-  }
-}
-@keyframes changeRightColPosition {
-  0% {
-    opacity: 1;
-    order: 1;
-  }
-  25% {
-    opacity: 0;
-    order: 1;
-  }
-  50% {
-    opacity: 0;
-    transform: translateX(-100%);
-    order: 2;
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    order: 2;
+    height: 38vh;
   }
 }
