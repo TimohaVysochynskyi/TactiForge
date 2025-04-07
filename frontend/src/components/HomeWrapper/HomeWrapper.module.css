@@ -40,11 +40,13 @@
   animation-name: makeVisible;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
+  width: 100%;
 }
 .hideAnimation {
   animation-name: makeInvisible;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
+  width: 100%;
 }
 
 @media screen and (max-width: 1440px) {
