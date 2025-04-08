@@ -4,7 +4,7 @@ import HomeWrapper from "../../components/HomeWrapper/HomeWrapper";
 import css from "./LaboratoryPage.module.css";
 import Chat from "../../components/Chat/Chat";
 import { fetchAllWeaponPairs } from "../../services/weapons";
-import Loader from "../../components/Loader/Loader";
+import CustomLoader from "../../components/CustomLoader/CustomLoader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import AppBar from "../../components/AppBar/AppBar";
 // import Fog from "../../components/Fog/Fog";
@@ -70,7 +70,7 @@ export default function LaboratoryPage() {
     }
   };
 
-  if (loading) return <Loader size="80" position="fixed" />;
+  if (loading) return <CustomLoader />;
   if (error) return <ErrorMessage />;
 
   return (
