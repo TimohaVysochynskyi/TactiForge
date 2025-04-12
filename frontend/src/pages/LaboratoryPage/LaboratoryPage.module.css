@@ -49,6 +49,6 @@ body {
     width: 100%;
   }
   .col:last-child {
-    height: 38vh;
+    height: 32vh;
   }
 }

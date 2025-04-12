@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   margin-top: 60px;
-  gap: 0 30px;
+  gap: 15px 30px;
 }
 .button {
   cursor: pointer;
@@ -71,6 +71,15 @@
   .button {
     padding: 10px 25px;
     font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .btnWrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+  .button {
+    width: 100%;
   }
 }
 

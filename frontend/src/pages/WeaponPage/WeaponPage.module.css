@@ -28,6 +28,9 @@
   animation-iteration-count: 1;
   transform: translateX(100%);
 }
+.sidebarOnTop {
+  z-index: 2;
+}
 
 .btn {
   padding: 10px 16px;
@@ -59,6 +62,14 @@
   width: 25px;
   height: 25px;
   transition: 0.2s;
+}
+
+@media screen and (max-width: 425px) {
+  .btn {
+    top: 20px;
+    left: 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 @keyframes sidebarOpen {

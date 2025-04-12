@@ -3,7 +3,6 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import WeaponScene from "../../components/WeaponScene/WeaponScene";
 import WeaponLabel from "../../components/WeaponLabel/WeaponLabel";
 import WeaponSideBar from "../../components/WeaponSideBar/WeaponSidebar";
-import Loader from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 import { fetchWeaponWithId } from "../../services/weapons";
@@ -14,6 +13,7 @@ import css from "./WeaponPage.module.css";
 import ButtonsList from "../../components/ButtonsList/ButtonsList";
 import clsx from "clsx";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import CustomLoader from "../../components/CustomLoader/CustomLoader";
 
 export default function WeaponPage() {
   const [loading, setLoading] = useState(false);
@@ -56,7 +56,7 @@ export default function WeaponPage() {
     return <Navigate to="/" />;
   }
 
-  if (loading) return <Loader position="fixed" size="80" />;
+  if (loading) return <CustomLoader />;
 
   return (
     <>
@@ -74,7 +74,12 @@ export default function WeaponPage() {
               animation={animation}
             />
             <WeaponLabel weapon={weaponData} />
-            <div className={css.sidebarWrapper}>
+            <div
+              className={clsx(
+                sidebarOpen && css.sidebarOnTop,
+                css.sidebarWrapper
+              )}
+            >
               <div
                 className={clsx(
                   sidebarOpen ? css.sidebarOpen : css.sidebarClose,

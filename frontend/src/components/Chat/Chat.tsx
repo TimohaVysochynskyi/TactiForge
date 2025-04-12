@@ -1,13 +1,7 @@
 import { useRef } from "react";
 import clsx from "clsx";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import {
-  IoPause,
-  IoPlay,
-  IoReload,
-  IoVolumeMedium,
-  IoVolumeMute,
-} from "react-icons/io5";
+import { IoPause, IoPlay } from "react-icons/io5";
 
 import QuestionsList from "../QuestionsList/QuestionsList";
 import { WeaponPairType } from "../../types/Weapon.types";
@@ -32,8 +26,7 @@ export default function Chat({
   onAudio,
   setAnimatedWeapon,
 }: Props) {
-  const { audioSrc, isPlaying, isMuted, playAudio, stopAudio, muteAudio } =
-    useAudio();
+  const { audioSrc, isPlaying, playAudio, stopAudio } = useAudio();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleLoadAudio = async (weapon: string) => {
@@ -75,23 +68,10 @@ export default function Chat({
           <audio
             ref={audioRef}
             src={`/assets/audio/${audioSrc}.mp3`}
-            onEnded={() => onAudio(false)}
+            onEnded={toggleAudioPlay}
           />
           <div className={css.audioWrapper}>
-            <button
-              className={css.audioBtn}
-              onClick={() => playAudio(audioSrc)}
-            >
-              <IoReload className={css.audioIcon} />
-            </button>
             <div className={css.audioGroup}>
-              <button className={css.audioBtn} onClick={muteAudio}>
-                {isMuted ? (
-                  <IoVolumeMute className={css.audioIcon} />
-                ) : (
-                  <IoVolumeMedium className={css.audioIcon} />
-                )}
-              </button>
               <button className={css.audioBtn} onClick={toggleAudioPlay}>
                 {isPlaying ? (
                   <IoPause className={css.audioIcon} />

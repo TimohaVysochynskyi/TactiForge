@@ -77,6 +77,28 @@
     font-size: 13px;
   }
 }
+@media screen and (max-width: 768px) {
+  .container:hover .imageWrapper .image {
+    width: 100%;
+    transform: scale(1) rotate(0deg);
+  }
+}
+@media screen and (max-width: 500px) {
+  .row {
+    flex-direction: column;
+  }
+  .name {
+    font-size: 22px;
+    text-align: center;
+  }
+  .description {
+    width: 100%;
+    text-align: center;
+  }
+  .description br {
+    display: none;
+  }
+}
 
 @keyframes blink {
   0% {

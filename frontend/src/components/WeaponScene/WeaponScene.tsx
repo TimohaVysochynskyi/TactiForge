@@ -16,7 +16,7 @@ import {
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 
-import Loader from "../Loader/Loader";
+import CustomLoader from "../CustomLoader/CustomLoader";
 
 import css from "./WeaponScene.module.css";
 
@@ -152,7 +152,7 @@ export default function WeaponScene({
 
   return (
     <>
-      {loading && <Loader position="fixed" size="80" />}
+      {loading && <CustomLoader />}
       <canvas ref={canvasRef} className={css.canvas} />
     </>
   );
