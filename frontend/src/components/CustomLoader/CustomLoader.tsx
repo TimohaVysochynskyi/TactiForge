@@ -4,19 +4,19 @@ import css from "./CustomLoader.module.css";
 
 export default function CustomLoader() {
   const messages = [
-    "Готуємо зброю...",
-    "Підготовлюємо розмітку...",
-    "Завантажуємо теорію...",
-    "Робимо запит на базу даних...",
+    "Завантаження моделей...",
+    "Підготовка 3D-сцени...",
+    "Завантаження теорії...",
+    "Підключення анімацій...",
   ];
 
   const [currentMessage, setCurrentMessage] = useState<number>(0);
 
   function handleMessageChange() {
-    if (currentMessage >= 3) setCurrentMessage(0);
+    if (currentMessage > 3) setCurrentMessage(0);
     setCurrentMessage(currentMessage + 1);
   }
-  setInterval(handleMessageChange, 3500);
+  setInterval(handleMessageChange, 5500);
 
   return (
     <>
