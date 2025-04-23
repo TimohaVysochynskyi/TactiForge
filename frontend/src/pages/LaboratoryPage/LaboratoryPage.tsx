@@ -85,6 +85,7 @@ export default function LaboratoryPage() {
               pair={pairNumber}
               onNext={handleNext}
               onPrev={handlePrev}
+              setPair={setPairNumber}
               animatedWeapon={animatedWeapon}
             />
           )}

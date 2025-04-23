@@ -37,6 +37,14 @@
   color: #fff;
   text-align: justify;
 }
+.sourcesList {
+  display: flex;
+  gap: 0 10px;
+  flex-wrap: wrap;
+}
+.sourceLink {
+  color: #fff;
+}
 
 @media screen and (max-width: 768px) {
   .container {

@@ -1,4 +1,5 @@
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import { IoIosReturnLeft } from "react-icons/io";
 import WeaponPair from "../WeaponPair/WeaponPair";
 
 import { WeaponPairType } from "../../types/Weapon.types";
@@ -12,6 +13,7 @@ type Props = {
   pair: number;
   onNext: () => void;
   onPrev: () => void;
+  setPair: (value: number) => void;
   animatedWeapon: string | null;
 };
 
@@ -20,6 +22,7 @@ export default function HomeStaretd({
   pair,
   onNext,
   onPrev,
+  setPair,
   animatedWeapon,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true);
@@ -66,6 +69,22 @@ export default function HomeStaretd({
             >
               Перейти далі
               <FaArrowRightLong className={css.arrow} />
+            </button>
+          )}
+          {pair >= 3 && (
+            <button
+              type="button"
+              onClick={() => {
+                setIsVisible((prev) => !prev);
+                setTimeout(() => {
+                  setPair(0);
+                  setIsVisible((prev) => !prev);
+                }, 500);
+              }}
+              className={css.button}
+            >
+              Повернутися
+              <IoIosReturnLeft className={css.arrow} />
             </button>
           )}
         </div>

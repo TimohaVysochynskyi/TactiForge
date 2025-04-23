@@ -17,4 +17,5 @@ export type WeaponType = {
     shortText: string;
     characteristics: Characteristic[];
     operation: string;
+    sources: string[];
 }

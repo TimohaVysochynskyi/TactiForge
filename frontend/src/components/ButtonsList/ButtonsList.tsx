@@ -4,8 +4,10 @@ import { TbView360Arrow } from "react-icons/tb";
 import { CgClose } from "react-icons/cg";
 
 import css from "./ButtonsList.module.css";
+import clsx from "clsx";
 
 type Props = {
+  currentWeapon: string;
   sidebarOpen: boolean;
   setSidebarOpen: (value: boolean) => void;
   rotationEnabled: boolean;
@@ -15,6 +17,7 @@ type Props = {
 };
 
 export default function ButtonsList({
+  currentWeapon,
   sidebarOpen,
   setSidebarOpen,
   rotationEnabled,
@@ -42,7 +45,11 @@ export default function ButtonsList({
         {/* <button type="button" className={css.btn}>
           <GiPlayButton className={css.icon} />
         </button> */}
-        <button type="button" className={css.btn} onClick={changeAnimation}>
+        <button
+          type="button"
+          className={clsx(css.btn, currentWeapon !== "ak74" && css.grayBtn)}
+          onClick={changeAnimation}
+        >
           <p className={css.text}>Розбірка</p>
           {currentAnimation == "idle" || currentAnimation == "assemble" ? (
             <>

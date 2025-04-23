@@ -25,6 +25,16 @@ export default function WeaponSidebar({ setSidebarOpen, weaponData }: Props) {
             <h3 className={css.title}>Принцип роботи</h3>
             <p className={css.text}>{weaponData.operation}</p>
           </div>
+          <br />
+          <div className={css.section}>
+            <div className={css.sourcesList}>
+              {weaponData.sources.map((source, index) => (
+                <a key={index} href={source} className={css.sourceLink}>
+                  Джерело {index + 1}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

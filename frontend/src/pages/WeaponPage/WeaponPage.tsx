@@ -95,6 +95,7 @@ export default function WeaponPage() {
               </div>
 
               <ButtonsList
+                currentWeapon={weaponData.media}
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
                 rotationEnabled={rotationEnabled}
