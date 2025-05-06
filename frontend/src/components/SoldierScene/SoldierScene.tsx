@@ -12,11 +12,11 @@ import {
   SceneLoader,
   Mesh,
   Animation,
+  Nullable,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 
 import Loader from "../Loader/Loader";
-
 import css from "./SoldierScene.module.css";
 
 type Props = {
@@ -26,11 +26,13 @@ type Props = {
 
 export default function SoldierScene({ animation, children }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const cameraRef = useRef<ArcRotateCamera | null>(null); // Реф для камери
+  const cameraRef = useRef<ArcRotateCamera | null>(null);
   const animationGroupsRef = useRef<AnimationGroup[]>([]);
+  const sceneRef = useRef<Nullable<Scene>>(null);
+  const engineRef = useRef<Nullable<Engine>>(null);
   const [loading, setLoading] = useState(true);
 
-  // Функція для відтворення анімації
+  // Анімація
   const playAnimation = (animationName: string) => {
     animationGroupsRef.current.forEach((group) => group.stop());
     const animationGroup = animationGroupsRef.current.find(
@@ -43,13 +45,15 @@ export default function SoldierScene({ animation, children }: Props) {
     if (!canvasRef.current) return;
 
     const engine = new Engine(canvasRef.current, true);
+    engineRef.current = engine;
+
     const scene = new Scene(engine);
+    sceneRef.current = scene;
     scene.clearColor = new Color4(0, 0, 0, 0);
 
-    // Завантаження моделі
     SceneLoader.ImportMesh(
       "",
-      "assets/", // Заміна на реальний шлях
+      "assets/",
       "soldier.glb",
       scene,
       (meshes, _, __, animationGroups) => {
@@ -57,14 +61,11 @@ export default function SoldierScene({ animation, children }: Props) {
         soldier.position = new Vector3(0, 0.1, 0);
         animationGroupsRef.current = animationGroups;
 
-        // Запуск початкової анімації
         playAnimation(animation);
-
         setLoading(false);
       }
     );
 
-    // Налаштування камери
     const camera = new ArcRotateCamera(
       "camera",
       Math.PI / 2,
@@ -73,43 +74,53 @@ export default function SoldierScene({ animation, children }: Props) {
       new Vector3(-0.3, 1.82, 0),
       scene
     );
-    cameraRef.current = camera; // Збереження камери у реф
-    camera.attachControl(scene.getEngine().getRenderingCanvas(), false);
+    cameraRef.current = camera;
+    camera.attachControl(canvasRef.current, false);
     camera.lowerRadiusLimit = camera.upperRadiusLimit = camera.radius;
     camera.lowerAlphaLimit = camera.upperAlphaLimit = camera.alpha;
     camera.lowerBetaLimit = camera.upperBetaLimit = camera.beta;
 
-    // Налаштування освітлення
-    const ambientLight = new HemisphericLight(
+    new HemisphericLight(
       "ambientLight",
       new Vector3(0, 1, 0),
       scene
-    );
-    ambientLight.intensity = 1;
-
-    const directionalLight = new DirectionalLight(
+    ).intensity = 1;
+    const dirLight = new DirectionalLight(
       "directionalLight",
       new Vector3(-1, -2, -1),
       scene
     );
-    directionalLight.intensity = 1.2;
-    directionalLight.position = new Vector3(5, 10, 5);
+    dirLight.intensity = 1.2;
+    dirLight.position = new Vector3(5, 10, 5);
 
     engine.runRenderLoop(() => {
       scene.render();
     });
 
-    window.addEventListener("resize", () => {
-      engine.resize();
-    });
+    const handleResize = () => engine.resize();
+    window.addEventListener("resize", handleResize);
 
     return () => {
+      // Очищення анімацій
+      animationGroupsRef.current.forEach((group) => group.dispose());
+
+      // Зупинити все, диспознути все
+      scene.stopAllAnimations();
+      scene.meshes.forEach((mesh) => mesh.dispose());
+      scene.materials.forEach((mat) => mat.dispose());
+      scene.textures.forEach((tex) => tex.dispose());
+      scene.lights.forEach((light) => light.dispose());
+      scene.cameras.forEach((cam) => cam.dispose());
+
+      scene.dispose();
       engine.dispose();
+
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  // Відтворення анімації при зміні пропсу
   useEffect(() => {
-    // Відтворення анімації при зміні пропсу animation
     setLoading(true);
     setTimeout(() => {
       if (animationGroupsRef.current.length > 0) {
@@ -119,21 +130,17 @@ export default function SoldierScene({ animation, children }: Props) {
     }, 250);
   }, [animation]);
 
-  // Ефект для анімації зміни позиції камери при зміні `chat`
+  // Анімація камери один раз
   useEffect(() => {
     if (cameraRef.current) {
-      const targetPosition = new Vector3(0, 1.82, 0);
-      const targetRadius = 5;
-
-      // Анімація переміщення камери
       Animation.CreateAndStartAnimation(
         "cameraMove",
         cameraRef.current,
         "target",
-        30, // частота кадрів
-        0, // тривалість
+        30,
+        0,
         cameraRef.current.target,
-        targetPosition,
+        new Vector3(0, 1.82, 0),
         Animation.ANIMATIONLOOPMODE_CONSTANT
       );
 
@@ -144,22 +151,17 @@ export default function SoldierScene({ animation, children }: Props) {
         30,
         0,
         cameraRef.current.radius,
-        targetRadius,
+        5,
         Animation.ANIMATIONLOOPMODE_CONSTANT
       );
     }
   }, []);
 
   return (
-    <>
-      <div className={clsx(css.scene, css.sceneBordered)}>
-        <canvas
-          ref={canvasRef}
-          className={clsx(css.canvas, css.canvasZoomed)}
-        />
-        {loading && <Loader position="absolute" size="80" />}
-        {<>{children}</>}
-      </div>
-    </>
+    <div className={clsx(css.scene, css.sceneBordered)}>
+      <canvas ref={canvasRef} className={clsx(css.canvas, css.canvasZoomed)} />
+      {loading && <Loader position="absolute" size="80" />}
+      {children}
+    </div>
   );
 }

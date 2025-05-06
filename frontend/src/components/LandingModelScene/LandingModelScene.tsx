@@ -10,6 +10,7 @@ import {
   Color4,
   SceneLoader,
   AbstractMesh,
+  Nullable,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 
@@ -28,6 +29,9 @@ export default function LandingModelScene({ media }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const modelRef = useRef<AbstractMesh | null>(null);
   const cameraRef = useRef<FreeCamera | null>(null);
+  const sceneRef = useRef<Nullable<Scene>>(null);
+  const engineRef = useRef<Nullable<Engine>>(null);
+
   const targetPosition = useRef<Vector3>(
     new Vector3(viewPortWidthPercent * 0.3, 0, 5)
   );
@@ -41,6 +45,9 @@ export default function LandingModelScene({ media }: Props) {
 
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
+    engineRef.current = engine;
+    sceneRef.current = scene;
+
     scene.clearColor = new Color4(0, 0, 0, 0);
     scene.skipPointerMovePicking = true;
     scene.autoClear = false;
@@ -51,12 +58,12 @@ export default function LandingModelScene({ media }: Props) {
       `${media}.glb`,
       scene,
       (meshes) => {
-        modelRef.current = meshes[0];
-        modelRef.current.scaling = new Vector3(1, 1, -1);
-        modelRef.current.position = targetPosition.current;
-        modelRef.current.rotation = new Vector3(0, Math.PI / 1.5, 0);
+        const model = meshes[0];
+        modelRef.current = model;
+        model.scaling = new Vector3(1, 1, -1);
+        model.position = targetPosition.current;
+        model.rotation = new Vector3(0, Math.PI / 1.5, 0);
         scene.freezeActiveMeshes();
-
         setLoading(false);
       }
     );
@@ -111,15 +118,22 @@ export default function LandingModelScene({ media }: Props) {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
     const handleWheel = (event: WheelEvent) => {
       rotationVelocity.current += event.deltaY * 0.00012;
     };
 
-    window.addEventListener("wheel", handleWheel);
+    const handleResize = () => {
+      engine.resize();
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("wheel", handleWheel);
+    window.addEventListener("resize", handleResize);
+
+    let isMounted = true;
     const animate = () => {
+      if (!isMounted) return;
+
       if (modelRef.current) {
         smoothRotation.current +=
           rotationVelocity.current - smoothRotation.current;
@@ -132,25 +146,37 @@ export default function LandingModelScene({ media }: Props) {
         const target = targetPosition.current;
 
         modelRef.current.position.x += (target.x - currentPosition.x) * 0.045;
-        modelRef.current.position.y += (target.y - currentPosition.y) * 0.045; // Додаємо y
+        modelRef.current.position.y += (target.y - currentPosition.y) * 0.045;
         modelRef.current.position.z +=
           (smoothZ.current - currentPosition.z) * 0.05;
       }
+
       requestAnimationFrame(animate);
     };
-
     animate();
+
     engine.runRenderLoop(() => {
       scene.render();
     });
 
-    window.addEventListener("resize", () => {
-      engine.resize();
-    });
-
     return () => {
+      isMounted = false;
+
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("resize", handleResize);
+
+      // Очищення ресурсу сцени
+      if (scene) {
+        scene.stopAllAnimations();
+        scene.meshes.forEach((mesh) => mesh.dispose());
+        scene.materials.forEach((mat) => mat.dispose());
+        scene.textures.forEach((tex) => tex.dispose());
+        scene.lights.forEach((light) => light.dispose());
+        scene.cameras.forEach((cam) => cam.dispose());
+        scene.dispose();
+      }
+
       engine.dispose();
     };
   }, [media]);

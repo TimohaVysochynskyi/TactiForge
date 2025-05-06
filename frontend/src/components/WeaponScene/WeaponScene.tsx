@@ -122,7 +122,26 @@ export default function WeaponScene({
       if (rotationObserver) {
         scene.onBeforeRenderObservable.remove(rotationObserver);
       }
+
+      scene.stopAllAnimations();
+
+      animationGroups?.forEach((group) => group.dispose());
+
+      scene.meshes.forEach((mesh) => mesh.dispose());
+
+      scene.materials.forEach((material) => material.dispose());
+
+      scene.textures.forEach((texture) => texture.dispose());
+
+      scene.lights.forEach((light) => light.dispose());
+      scene.cameras.forEach((cam) => cam.dispose());
+
+      scene.dispose();
+
       engine.dispose();
+      window.removeEventListener("resize", () => {
+        engine.resize();
+      });
     };
   }, [media, rotationEnabled]);
 
