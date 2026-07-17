@@ -1,23 +1,11 @@
-import axios from "axios";
-import { apiDomain } from "../constants.ts";
-import { WeaponType } from "../types/Weapon.types.ts";
+import weaponPairs from "../data/weaponPairs.json";
+import { WeaponPairType, WeaponType } from "../types/Weapon.types";
 
-const URL = `${apiDomain}/weapons`;
+const pairs = weaponPairs as WeaponPairType[];
 
+export const fetchAllWeaponPairs = async (): Promise<WeaponPairType[]> => pairs;
 
-
-export const fetchAllWeaponPairs = async () => {
-  const response = await axios.get(`${URL}/`);
-
-  return response.data;
-};
-export const fetchWeaponWithId = async (id: string) => {
-  const response = await axios.get(`${URL}/${id}`);
-
-  return response.data;
-};
-export const addWeapon = async (payload: WeaponType) => {
-  const response = await axios.post(`${URL}/`, payload);
-
-  return response.data;
-};
+export const fetchWeaponWithId = async (
+  id: string
+): Promise<WeaponType | undefined> =>
+  pairs.flatMap((pair) => pair.weapons).find((weapon) => weapon._id === id);

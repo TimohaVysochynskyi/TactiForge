@@ -7,7 +7,7 @@ import { fetchAllWeaponPairs } from "../../services/weapons";
 import CustomLoader from "../../components/CustomLoader/CustomLoader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import AppBar from "../../components/AppBar/AppBar";
-// import Fog from "../../components/Fog/Fog";
+import { WeaponPairType } from "../../types/Weapon.types";
 
 const SoldierScene = lazy(
   () => import("../../components/SoldierScene/SoldierScene")
@@ -27,7 +27,7 @@ export default function LaboratoryPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [weaponsData, setWeaponsData] = useState([]);
+  const [weaponsData, setWeaponsData] = useState<WeaponPairType[]>([]);
 
   // Ефект для збереження стану pairNumber у localStorage
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function LaboratoryPage() {
       try {
         setLoading(true);
         const response = await fetchAllWeaponPairs();
-        setWeaponsData(response.data);
+        setWeaponsData(response);
       } catch (error) {
         setError(true);
         console.log(error);
@@ -75,7 +75,6 @@ export default function LaboratoryPage() {
 
   return (
     <>
-      {/* <Fog /> */}
       <AppBar />
       <main className={css.container}>
         <div className={css.col}>

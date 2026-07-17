@@ -29,8 +29,12 @@ export default function WeaponPage() {
       try {
         setLoading(true);
         if (id) {
-          const response = await fetchWeaponWithId(id);
-          setWeaponData(response.data);
+          const weapon = await fetchWeaponWithId(id);
+          if (weapon) {
+            setWeaponData(weapon);
+          } else {
+            setError(true);
+          }
         }
       } catch (error) {
         setError(true);

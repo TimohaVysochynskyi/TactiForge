@@ -16,11 +16,6 @@ export default function Navigation() {
             Лабораторія
           </NavLink>
         </li>
-        <li className={css.item}>
-          <NavLink className={css.link} to="/help">
-            Допомогти
-          </NavLink>
-        </li>
       </ul>
     </>
   );

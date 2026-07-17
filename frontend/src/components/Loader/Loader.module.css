@@ -9,3 +9,18 @@
   left: 0;
   z-index: 2;
 }
+
+.spinner {
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  animation: loader-spin 0.9s linear infinite;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
